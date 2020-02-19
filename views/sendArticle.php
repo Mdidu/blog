@@ -1,3 +1,6 @@
+<?php
+    require "../models/backend.php";
+    ?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -24,6 +27,7 @@
             <input type="hidden" name="page" value="sendArticle">
             <input type="submit" id="submit">
         </form>
+        <?php getArticles();?>
     </div>
 </body>
 </html>

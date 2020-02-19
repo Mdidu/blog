@@ -12,8 +12,7 @@
                 break;
             case "login":
                 if (isset($_POST['pseudo']) && isset($_POST['password'])) {
-//                    checkLog($_POST['pseudo'], $_POST['password']);
-                    getArticles();
+                    checkLog($_POST['pseudo'], $_POST['password']);
                 }
                 break;
             case "sendArticle":

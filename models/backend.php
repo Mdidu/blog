@@ -110,7 +110,7 @@ function getArticles(){
         $sql->execute();
 
         while($row = $sql->fetch()){
-            echo "<div><div>".$row['title'].'</div><div>'.$row['contend']."</div></div>";
+            echo "<div><div><strong>".$row['title'].'</strong></div><div>'.$row['contend']."</div>Ecrit par : ".$_SESSION['pseudo']."</div>";
         }
 
         $sql->closeCursor();
