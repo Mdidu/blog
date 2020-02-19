@@ -52,7 +52,7 @@
             if ($pseudo === $row['pseudo'] && password_verify($password, $row['password'])) {
 
                 $_SESSION['pseudo'] = $pseudo;
-                $_SESSION['group_id'] = $row['group_id'];
+                // $_SESSION['group_id'] = $row['group_id'];
             }
         }
         $sql->closeCursor();
@@ -61,8 +61,6 @@
 //            header('location: comment.php');
             header('location: ../controllers/backend.php');
             echo "Bijoul le cauwde of ".$_SESSION['pseudo'];
-        }else {
-            header('location: login.php');
         }
     }
-//    echo json_encode("test");
+    //    echo json_encode("test");
