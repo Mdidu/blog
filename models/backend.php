@@ -85,6 +85,7 @@ function addArticles($title, $contend){
     $sql->execute();
 
     $sql->closeCursor();
+    header('location: ../views/sendArticle.php');
 }
 
 function addCommentary($contend){
@@ -110,7 +111,25 @@ function getArticles(){
         $sql->execute();
 
         while($row = $sql->fetch()){
-            echo "<div><div><strong>".$row['title'].'</strong></div><div>'.$row['contend']."</div>Ecrit par : ".$_SESSION['pseudo']."</div>";
+            $id = $row['id'];
+            $title = $row["title"];
+            $contend = $row["contend"];
+            $pseudo = $_SESSION['pseudo'];
+            echo <<<HTML
+                <div class='articles'>
+                    <div>
+                        <div>$title</div>
+                    </div>
+                    <div>$contend</div>
+                    <div>Ecrit par : $pseudo</div>
+                    <form action="sendCommentary" method="get">
+                        <input type="hidden" name="article_commentary" id="article_commentary" value="$id">
+                        <input type="submit" value="Ajouter un commentaire">
+                    </form>
+                    
+                    <button>Voir les commentaire </button>
+                </div>
+HTML;
         }
 
         $sql->closeCursor();
