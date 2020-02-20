@@ -88,10 +88,11 @@ function addArticles($title, $contend){
     header('location: ../views/sendArticle.php');
 }
 
-function addCommentary($contend){
+function addCommentary($contend, $articles){
     global $db;
 
     $timestamp = time();
+
     $sql = $db->prepare("INSERT INTO commentary (contend, date, articles_id) VALUES (:contend, :date, :articles_id)");
 
     $sql->bindParam(":contend", $contend);
@@ -101,6 +102,8 @@ function addCommentary($contend){
     $sql->execute();
 
     $sql->closeCursor();
+    header('location: ../views/sendCommentary.php');
+
 }
 
 function getArticles(){
@@ -115,20 +118,19 @@ function getArticles(){
             $title = $row["title"];
             $contend = $row["contend"];
             $pseudo = $_SESSION['pseudo'];
-            echo <<<HTML
-                <div class='articles'>
-                    <div>
-                        <div>$title</div>
-                    </div>
-                    <div>$contend</div>
-                    <div>Ecrit par : $pseudo</div>
-                    <form action="sendCommentary" method="get">
-                        <input type="hidden" name="article_commentary" id="article_commentary" value="$id">
-                        <input type="submit" value="Ajouter un commentaire">
-                    </form>
-                    
-                    <button>Voir les commentaire </button>
-                </div>
+
+        echo <<<HTML
+        <div class='articles'>
+            <div>
+                <div>$title</div>
+            </div>
+            <div>$contend</div>
+            <div>Ecrit par : $pseudo</div>
+            <form action="sendCommentary.php" method="get">
+                <input type="hidden" name="article_commentary" id="article_commentary" value="$id">
+                <input type="submit" value="Ajouter/Voir un commentaire">
+            </form>
+        </div>
 HTML;
         }
 
@@ -138,11 +140,26 @@ HTML;
 function getCommentary($articles_id){
     global $db;
 
-    $sql = $db->prepare("SELECT * FROM commentary WHERE articles_id = :articles_id");
+    if(isset($articles_id)){
+        $sql = $db->prepare("SELECT * FROM commentary LEFT JOIN articles ON articles.id = commentary.articles_id WHERE articles_id = :articles_id");
 
-    $sql->execute(":articles_id", $articles_id);
+        $sql->bindParam(':articles_id', $articles_id);
+        $sql->execute();
 
-    $data = $sql->fetchAll();
+        $data = $sql->fetchAll();
+        while($row = $sql->fetch()){
+            $contend = $row['contend'];
+            $pseudo = $_SESSION['pseudo'];
 
-    $sql->closeCursor();
+            echo <<<HTML
+                <div class='commentary'>
+                    <div>$contend</div>
+                    <div>Ecrit par : $pseudo</div>
+                </div>
+HTML;
+        }
+        $sql->closeCursor();
+    }else {
+        var_dump("error");
+    }
 }

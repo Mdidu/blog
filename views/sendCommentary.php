@@ -15,16 +15,15 @@
 
     </div>
     <form action="../controllers/backend.php" method="post">
-        <label for="title"></label>
-        <input type="text" name="title" id="title" placeholder="Entrez le titre de votre article !">
 
         <label for="contend"></label>
-        <input type="text" name="contend" id="contend" placeholder="Entrez le contenu de votre article !">
+        <input type="text" name="contend" id="contend" placeholder="Entrez le contenu de votre commentaire !">
 
+        <input type="hidden" name="article_commentary" id="article_commentary" value="<?= $_GET['article_commentary'];?>">
         <input type="hidden" name="page" value="sendCommentary">
         <input type="submit" id="submit">
     </form>
-    <?php getArticles();?>
+    <?php getCommentary($_GET['article_commentary']);?>
 </div>
 </body>
 </html>

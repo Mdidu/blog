@@ -20,6 +20,11 @@
                     addArticles($_POST['title'], $_POST['contend']);
                 }
                 break;
+            case "sendCommentary":
+                if (isset($_POST['contend']) && isset($_POST['article_commentary'])) {
+                    addCommentary($_POST['contend'], $_POST['article_commentary']);
+                }
+                break;
             default:
                 break;
         }
