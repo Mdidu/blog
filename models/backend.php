@@ -148,15 +148,19 @@ function getCommentary($articles_id){
 
 //        $data = $sql->fetchAll();
         while($row = $sql->fetch()){
+            var_dump($row);
             $contend = $row['contend'];
             $pseudo = $_SESSION['pseudo'];
 
-            echo <<<HTML
-                <div class='commentary'>
-                    <div>$contend</div>
-                    <div>Ecrit par : $pseudo</div>
+            ?>
+                <div class='articles'>
+                    <div><?= $contend ?></div>
+                    <div>Ecrit par : <?= $pseudo ?></div>
                 </div>
-HTML;
+            <div class="commentary">
+                <div><?= $row[1]; ?></div>
+            </div>
+<?php
         }
         $sql->closeCursor();
     }else {
