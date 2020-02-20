@@ -146,7 +146,7 @@ function getCommentary($articles_id){
         $sql->bindParam(':articles_id', $articles_id);
         $sql->execute();
 
-        $data = $sql->fetchAll();
+//        $data = $sql->fetchAll();
         while($row = $sql->fetch()){
             $contend = $row['contend'];
             $pseudo = $_SESSION['pseudo'];

@@ -1,3 +1,6 @@
+<?php
+    require "../models/backend.php"
+    ;?>
 <!doctype html>
 <html lang="fr">
 <head>
