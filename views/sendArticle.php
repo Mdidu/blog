@@ -17,7 +17,8 @@
         <div id="contend">
 
         </div>
-        <form action="../controllers/backend.php" method="post">
+<!--        <form action="../controllers/backend.php" method="post">-->
+        <form action="../class/Articles.php" method="post">
             <label for="title"></label>
             <input type="text" name="title" id="title" placeholder="Entrez le titre de votre article !">
 

@@ -146,24 +146,30 @@ function getCommentary($articles_id){
         $sql->bindParam(':articles_id', $articles_id);
         $sql->execute();
 
+        $i = 0;
 //        $data = $sql->fetchAll();
-        while($row = $sql->fetch()){
-            var_dump($row);
+        while($row = $sql->fetch()):
+//            var_dump($row);
             $contend = $row['contend'];
+            $title = $row['title'];
             $pseudo = $_SESSION['pseudo'];
-
+            //si l'article n'est pas sur la page, on affiche l'article
+                if($i === 0):
             ?>
                 <div class='articles'>
+                    <div><?= $title ?></div>
                     <div><?= $contend ?></div>
                     <div>Ecrit par : <?= $pseudo ?></div>
                 </div>
+                <?php
+                    $i++;
+                    endif;
+                    ?>
             <div class="commentary">
                 <div><?= $row[1]; ?></div>
             </div>
 <?php
-        }
+        endwhile;
         $sql->closeCursor();
-    }else {
-        var_dump("error");
     }
 }
