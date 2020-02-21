@@ -34,6 +34,7 @@
         $commentary = new Commentary();
         $commentary->getCommentary($_GET['article_commentary']);
     ?>
+    <a href="sendArticle.php">Liste articles</a>
 </div>
 </body>
 </html>

@@ -87,13 +87,14 @@ class Articles extends Blog
 //        var_dump($row);
         if($i >= 0):
         while($i < intval(count($row))):
-
-            $this->id = $row[$i]['id'];
+            //id de l'article
+            $this->id = $row[$i][0];
+//        var_dump($row);
             $this->title = $row[$i]["title"];
             $this->contend = $row[$i]["contend"];
-            if($row[$i]['user_id'] == $row[$i]['id']){
-                $this->author = $row[$i]['pseudo'];
-            }
+//            if($row[$i]['user_id'] == $row[$i]['id']){
+            $this->author = $row[$i]['pseudo'];
+//            }
 
 //            var_dump($row[$i]['user_id']);
 //            var_dump($row);
@@ -104,7 +105,7 @@ class Articles extends Blog
             </div>
             <div><?= $this->contend ?></div>
             <div>Ecrit par : <?= $this->author ?></div>
-            <div>Ecrit par : <?= $row[$i]['user_id'];?></div>
+<!--            <div>Ecrit par : --><?//= $row[$i]['user_id'];?><!--</div>-->
             <form action="sendCommentary.php" method="get">
                 <input type="hidden" name="article_commentary" id="article_commentary" value="<?= $this->id?>">
                 <input type="submit" value="Ajouter/Voir un commentaire">

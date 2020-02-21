@@ -11,10 +11,11 @@
      * Ajout article OK
      * Affichage article OK
      * Ajout commentaire OK
-     * affichage commentaire / article_commentary VAUT QUE 1 actuellement
-     * Retourner à la liste des articles depuis les commentaires A FAIRE
+     * affichage commentaire OK
+     * Retourner à la liste des articles depuis les commentaires OK
      * Afficher bouton logOUT sur toutes les pages A FAIRE
      * FAIRE LES UPDATE / DELETE
+     * DONNER DES DROITS ADMIN/MODO A UN USERS
     */
     $blog = new Blog();
 
