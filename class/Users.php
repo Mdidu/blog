@@ -1,5 +1,5 @@
 <?php
-require "Blog.php";
+//require "Blog.php";
 
 class Users extends Blog
 {
@@ -8,12 +8,19 @@ class Users extends Blog
     private $password;
     private $rank;
 
-    public function __construct()
+    public function __construct($pseudo, $password)
     {
-
+        $this->pseudo = $pseudo;
+        $this->password = $password;
+        $this->rank = 1;
     }
 
     //User
+
+    /**
+     * @param $pseudo
+     * @return int|null
+     */
     private function search_user($pseudo){
         $sql = $this->getDB()->prepare("SELECT id, pseudo FROM user");
 
@@ -21,7 +28,7 @@ class Users extends Blog
 
         while($row = $sql->fetch()){
             if($row['pseudo'] === $pseudo){
-                $id = $row['id'];
+                $id = intval($row['id']);
                 $sql->closeCursor();
 
                 return $id;
@@ -32,23 +39,21 @@ class Users extends Blog
     }
 
     public function addUser(){
-        $id = $this->search_user($this->pseudo);
+        $this->id = $this->search_user($this->pseudo);
         //if $id !== NULL && EXIST
-        if(!isset($id)){
-            //rank members : 1 = User
-            $rank = 1;
+        if(!isset($this->id)){
             $sql = $this->getDB()->prepare('INSERT INTO user (pseudo, password, group_id) VALUES (:pseudo, :password, :group_id)');
 
-            $sql->bindParam(':pseudo', $pseudo);
-            $sql->bindParam(':password', $password);
-            $sql->bindParam(':group_id', $rank);
+            $sql->bindParam(':pseudo', $this->pseudo);
+            $sql->bindParam(':password', $this->password);
+            $sql->bindParam(':group_id', $this->rank);
 
             $sql->execute();
 
             $sql->closeCursor();
         }
 
-//        header('location: ../views/login.php');
+        header('location: ../views/login.php');
     }
     public function updateUser(){
 
@@ -67,7 +72,7 @@ class Users extends Blog
 //        }
 //    }
 //TODO: peut-être à couper en 2 méthodes !!
-    private function checkLog($pseudo, $password){
+    public function checkLog($pseudo, $password){
 
         $sql = $this->getDB()->prepare("SELECT * FROM user WHERE pseudo = :pseudo");
 
@@ -85,11 +90,9 @@ class Users extends Blog
         $sql->closeCursor();
 
         if(isset($_SESSION['pseudo'])){
-//            header('location: comment.php');
 //            header('location: ../controllers/backend.php');
             header('location: ../views/sendArticle.php');
 //            echo "Bijoul le cauwde of ".$_SESSION['pseudo'];
         }
     }
-
 }

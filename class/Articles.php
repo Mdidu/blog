@@ -1,26 +1,43 @@
 <?php
-require 'Blog.php';
+    session_start();
+//require 'Blog.php';
 //TODO: Méthodes à découper 1 méthode = 1 action
 class Articles extends Blog
 {
 
-//    private $id;
+    private $id;
     private $title;
     private $contend;
     private $date;
     private $author;
 //    private $commentary;
 
-    public function __construct($title, $contend, $date, $author)
+    public function __construct(/*$title, $contend, $date, $author*/)
     {
-        $this->title = $title;
-        $this->contend = $contend;
-        $this->date = $date;
-        $this->author = $author;
+//        $this->title = $title;
+//        $this->contend = $contend;
+//        $this->date = $date;
+//        $this->author = $author;
     }
 
     //Articles
-    public function addArticles(){
+        private function setArticles($title, $contend){
+            $this->title = $title;
+            $this->contend = $contend;
+            $this->date = time();
+            $this->author = $_SESSION['id'];
+        }
+        public function searchArticles(){
+
+            $sql = $this->getDB()->prepare("SELECT * FROM articles LEFT JOIN user ON articles.user_id = user.id");
+
+            $sql->execute();
+            $row = $sql->fetchAll();
+            $sql->closeCursor();
+            return $row;
+        }
+    public function addArticles($title, $contend){
+        $this->setArticles($title, $contend);
         $sql = $this->getDB()->prepare("INSERT INTO articles (title, contend, date, user_id) VALUES (:title, :contend, :date, :user_id)");
 
         $sql->bindParam(":title", $this->title);
@@ -32,7 +49,7 @@ class Articles extends Blog
 
         $sql->closeCursor();
 
-//        header('location: ../views/sendArticle.php');
+        header('location: ../views/sendArticle.php');
     }
     public function updateArticles(){
 
@@ -40,39 +57,57 @@ class Articles extends Blog
     public function deleteArticles(){
 
     }
-    //TODO: Diviser en une méthode d'affichage et une méthode de recherche dans le database
-    public function getArticles(){
-        $sql = $this->getDB()->prepare("SELECT * FROM articles");
 
-        $sql->execute();
+    //TODO: Diviser en une méthode d'affichage
+    public function getArticles($i = NULL){
+//        $sql = $this->getDB()->prepare("SELECT * FROM articles");
+//
+//        $sql->execute();
 
-        while($row = $sql->fetch()){
-            $id = $row['id'];
-            $title = $row["title"];
-            $contend = $row["contend"];
-            $pseudo = $_SESSION['pseudo'];
+        $row =$this->searchArticles();
 
-            echo <<<HTML
+//        var_dump($row);
+        if($i >= 0):
+        while($i < intval(count($row))):
+
+            $this->id = $row[$i]['id'];
+            $this->title = $row[$i]["title"];
+            $this->contend = $row[$i]["contend"];
+            if($row[$i]['user_id'] == $row[$i]['id']){
+                $this->author = $row[$i]['pseudo'];
+            }
+
+//            var_dump($row[$i]['user_id']);
+//            var_dump($row);
+//            ?>
         <div class='articles'>
             <div>
-                <div>$title</div>
+                <div><?= $this->title ?></div>
             </div>
-            <div>$contend</div>
-            <div>Ecrit par : $pseudo</div>
+            <div><?= $this->contend ?></div>
+            <div>Ecrit par : <?= $this->author ?></div>
+            <div>Ecrit par : <?= $row[$i]['user_id'];?></div>
             <form action="sendCommentary.php" method="get">
-                <input type="hidden" name="article_commentary" id="article_commentary" value="$id">
+                <input type="hidden" name="article_commentary" id="article_commentary" value="<?= $this->id?>">
                 <input type="submit" value="Ajouter/Voir un commentaire">
             </form>
         </div>
-HTML;
-        }
+<?php
+            $i++;
+    endwhile;
+    endif;
+//        }
 
-        $sql->closeCursor();
+//        $sql->closeCursor();
     }
 }
 
 //Crée une instance de blog
-$blog = new Blog();
+//$blog = new Blog();
+
 //Crée un nouvel article !!
-$data = new Articles($_POST['title'], $_POST['contend'], time(), 1);
-$data->addArticles();
+//$data = new Articles($_POST['title'], $_POST['contend'], time(), $_SESSION['id']);
+//$data->getArticles(0);
+//$data->addArticles();
+
+//$data->getArticles(0);

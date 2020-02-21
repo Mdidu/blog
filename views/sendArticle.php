@@ -1,5 +1,11 @@
 <?php
-    require "../models/backend.php";
+//    require "../models/backend.php";
+//    require "../controllers/backend.php";
+//    require '../class/Blog.php';
+    require "../class/Blog.php";
+    require "../class/Users.php";
+    require "../class/Articles.php";
+//    $blog = new Blog();
     ?>
 <!doctype html>
 <html lang="fr">
@@ -17,8 +23,8 @@
         <div id="contend">
 
         </div>
-<!--        <form action="../controllers/backend.php" method="post">-->
-        <form action="../class/Articles.php" method="post">
+        <form action="../controllers/backend.php" method="post">
+<!--        <form action="../class/Articles.php" method="post">-->
             <label for="title"></label>
             <input type="text" name="title" id="title" placeholder="Entrez le titre de votre article !">
 
@@ -28,7 +34,9 @@
             <input type="hidden" name="page" value="sendArticle">
             <input type="submit" id="submit">
         </form>
-        <?php getArticles();?>
+        <?php
+            $article = new Articles();
+            $article->getArticles(0) ;?>
     </div>
 </body>
 </html>
