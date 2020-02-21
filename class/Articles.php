@@ -82,7 +82,7 @@ class Articles extends Blog
 //
 //        $sql->execute();
 
-        $row =$this->searchArticles();
+        $row = $this->searchArticles();
 
 //        var_dump($row);
         if($i >= 0):

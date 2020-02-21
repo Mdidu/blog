@@ -10,8 +10,9 @@
      * Connexion OK
      * Ajout article OK
      * Affichage article OK
-     * Ajout commentaire A FAIRE
-     * affichage commentaire A FAIRE
+     * Ajout commentaire OK
+     * affichage commentaire / article_commentary VAUT QUE 1 actuellement
+     * Retourner à la liste des articles depuis les commentaires A FAIRE
      * Afficher bouton logOUT sur toutes les pages A FAIRE
      * FAIRE LES UPDATE / DELETE
     */

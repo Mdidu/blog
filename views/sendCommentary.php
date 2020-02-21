@@ -1,6 +1,9 @@
 <?php
-    require "../models/backend.php"
-    ;?>
+//    require "../models/backend.php";
+    require "../class/Blog.php";
+    require "../class/Users.php";
+    require "../class/Commentary.php";
+    ?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -26,7 +29,11 @@
         <input type="hidden" name="page" value="sendCommentary">
         <input type="submit" id="submit">
     </form>
-    <?php getCommentary($_GET['article_commentary']);?>
+<!--    --><?php //getCommentary($_GET['article_commentary']);?>
+    <?php
+        $commentary = new Commentary();
+        $commentary->getCommentary($_GET['article_commentary']);
+    ?>
 </div>
 </body>
 </html>
