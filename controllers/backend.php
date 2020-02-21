@@ -3,6 +3,7 @@
     require "../class/Blog.php";
     require "../class/Users.php";
     require "../class/Articles.php";
+    require "../class/Commentary.php";
 //    require "../models/backend.php";
 
     /*TODO= Création utilisateur OK
@@ -11,6 +12,8 @@
      * Affichage article OK
      * Ajout commentaire A FAIRE
      * affichage commentaire A FAIRE
+     * Afficher bouton logOUT sur toutes les pages A FAIRE
+     * FAIRE LES UPDATE / DELETE
     */
     $blog = new Blog();
 
@@ -43,7 +46,10 @@
                 break;
             case "sendCommentary":
                 if (isset($_POST['contend']) && isset($_POST['article_commentary'])) {
-                    addCommentary($_POST['contend'], $_POST['article_commentary']);
+                    //addCommentary($_POST['contend'], $_POST['article_commentary']);
+                    $commentary = new Commentary();
+
+                    $commentary->addCommentary($_POST['article_commentary'],$_POST['contend']);
                 }
                 break;
             default:

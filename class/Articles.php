@@ -21,12 +21,21 @@ class Articles extends Blog
     }
 
     //Articles
+
+        /**
+         * @param $title string
+         * @param $contend string
+         */
         private function setArticles($title, $contend){
             $this->title = $title;
             $this->contend = $contend;
             $this->date = time();
             $this->author = $_SESSION['id'];
         }
+
+        /**
+         * @return array
+         */
         public function searchArticles(){
 
             $sql = $this->getDB()->prepare("SELECT * FROM articles LEFT JOIN user ON articles.user_id = user.id");
@@ -36,6 +45,11 @@ class Articles extends Blog
             $sql->closeCursor();
             return $row;
         }
+
+        /**
+         * @param $title string
+         * @param $contend string
+         */
     public function addArticles($title, $contend){
         $this->setArticles($title, $contend);
         $sql = $this->getDB()->prepare("INSERT INTO articles (title, contend, date, user_id) VALUES (:title, :contend, :date, :user_id)");
@@ -59,6 +73,10 @@ class Articles extends Blog
     }
 
     //TODO: Diviser en une méthode d'affichage
+
+        /**
+         * @param int|null $i
+         */
     public function getArticles($i = NULL){
 //        $sql = $this->getDB()->prepare("SELECT * FROM articles");
 //

@@ -1,6 +1,9 @@
 <?php
 //require "Blog.php";
 
+    /**
+     * Class Users
+     */
 class Users extends Blog
 {
     private $id;
@@ -8,6 +11,11 @@ class Users extends Blog
     private $password;
     private $rank;
 
+    /**
+     * Users constructor.
+     * @param $pseudo string
+     * @param $password string
+     */
     public function __construct($pseudo, $password)
     {
         $this->pseudo = $pseudo;
@@ -18,7 +26,7 @@ class Users extends Blog
     //User
 
     /**
-     * @param $pseudo
+     * @param $pseudo string
      * @return int|null
      */
     private function search_user($pseudo){
@@ -72,6 +80,10 @@ class Users extends Blog
 //        }
 //    }
 //TODO: peut-être à couper en 2 méthodes !!
+        /**
+         * @param $pseudo string
+         * @param $password string
+         */
     public function checkLog($pseudo, $password){
 
         $sql = $this->getDB()->prepare("SELECT * FROM user WHERE pseudo = :pseudo");

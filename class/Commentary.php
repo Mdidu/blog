@@ -1,5 +1,5 @@
 <?php
-require "Blog.php";
+//require "Blog.php";
 
 class Commentary extends Blog
 {
@@ -7,6 +7,12 @@ class Commentary extends Blog
     private $contend;
     private $date;
     private $author;
+
+    public function __construct()
+    {
+
+    }
+
     //Commentary
     public function addCommentary($articles, $contend){
         //TODO: Peut-être kick le timestamp
