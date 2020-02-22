@@ -12,7 +12,7 @@ class Users extends Blog
     private $rank;
 
     /**
-     * Users constructor.
+     * Users constructor
      * @param $pseudo string
      * @param $password string
      */
@@ -104,14 +104,6 @@ class Users extends Blog
         if(isset($_SESSION['pseudo'])){
 //            header('location: ../controllers/backend.php');
             header('location: ../views/sendArticle.php');
-//            echo "Bijoul le cauwde of ".$_SESSION['pseudo'];
         }
     }
-//    public function logout(){
-//        session_unset();
-//
-//        session_destroy();
-//
-//        header('location: ../index.php');
-//    }
 }

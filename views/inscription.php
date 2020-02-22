@@ -20,7 +20,6 @@
         <input type="password" name="checkPassword" id="checkPassword" placeholder="Entrez de nouveau votre mot de passe">
 
         <input type="hidden" name="page" value="inscription" id="page">
-<!--        <button id="submit">Envoyer</button>-->
     <input type="submit" id="submit">
 
 </form>

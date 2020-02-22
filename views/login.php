@@ -20,7 +20,6 @@
 
     <input type="hidden" name="page" value="login" id="page">
 
-    <!--        <button id="submit">Envoyer</button>-->
     <input type="submit" id="submit">
 </form>
 <script src="../public/js/script.js"></script>

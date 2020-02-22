@@ -36,7 +36,6 @@
         <input type="hidden" name="page" value="sendCommentary">
         <input type="submit" id="submit">
     </form>
-<!--    --><?php //getCommentary($_GET['article_commentary']);?>
     <?php
         $commentary = new Commentary();
         $commentary->getCommentary($_GET['article_commentary']);

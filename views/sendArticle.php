@@ -1,7 +1,6 @@
 <?php
 //    require "../models/backend.php";
 //    require "../controllers/backend.php";
-//    require '../class/Blog.php';
     require "../class/Blog.php";
     require "../class/Users.php";
     require "../class/Articles.php";

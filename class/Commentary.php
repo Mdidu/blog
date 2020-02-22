@@ -1,37 +1,53 @@
 <?php
-//require "Blog.php";
 
 class Commentary extends Blog
 {
     private $articles_id;
     private $contend_commentary;
     private $date_commentary;
-    private $author_commentary;
+//    private $author_commentary;
     private $comment;
 
     public function __construct()
     {
         $this->comment = false;
     }
-
+    private function setArticlesId($articles_id){
+        $this->articles_id = $articles_id;
+    }
+    private function setContendCommentary($contend_commentary){
+        $this->contend_commentary = $contend_commentary;
+    }
+    private function setDateCommentary($date_commentary){
+        $this->date_commentary = $date_commentary;
+    }
+    private function setAuthorCommentary($author_commentary){
+        $this->author_commentary = $author_commentary;
+    }
+    private function setComment($comment){
+        $this->comment = $comment;
+    }
     //Commentary
-    private function searchCommentary($articles_id){
-//        $sql = $this->getDB()->prepare("SELECT * FROM commentary LEFT JOIN user ON commentary.articles_id = articles.id ORDER BY date DESC");
+    private function searchCommentary(/*$articles_id*/){
 
         $sql = $this->getDB()->prepare("SELECT * FROM commentary LEFT JOIN articles ON articles.id = commentary.articles_id WHERE articles_id = :articles_id ORDER BY commentary.date DESC");
 
-        $sql->bindParam(':articles_id', $articles_id);
+        $sql->bindParam(':articles_id', $this->articles_id);
 
         $sql->execute();
         $row = $sql->fetchAll();
         $sql->closeCursor();
         return $row;
     }
-    public function addCommentary($articles, $contend){
+    public function addCommentary($articles_id, $contend){
         //TODO: Peut-être kick le timestamp
-        $this->contend_commentary = $contend;
-        $this->date_commentary = time();
-        $this->articles_id = $articles;
+        $this->setContendCommentary($contend);
+        $this->setDateCommentary(time());
+        $this->setArticlesId($articles_id);
+
+//        $this->contend_commentary = $contend;
+//        $this->date_commentary = time();
+//        $this->articles_id = $articles;
 
         $sql = $this->getDB()->prepare("INSERT INTO commentary (contend, date, articles_id) VALUES (:contend, :date, :articles_id)");
 
@@ -42,7 +58,7 @@ class Commentary extends Blog
         $sql->execute();
 
         $sql->closeCursor();
-        header('location: ../views/sendCommentary.php?article_commentary='.$articles);
+        header('location: ../views/sendCommentary.php?article_commentary='.$this->articles_id);
     }
     public function updateCommentary(){
 
@@ -50,9 +66,9 @@ class Commentary extends Blog
     public function deleteCommentary(){
 
     }
-    private function searchArticle($articles_id){
+    private function searchArticle(/*$articles_id*/){
         $sql = $this->getDB()->prepare("SELECT * FROM articles WHERE id = :id");
-        $sql->bindParam(':id', $articles_id);
+        $sql->bindParam(':id', $this->articles_id);
         $sql->execute();
         $row = $sql->fetchAll();
         $sql->closeCursor();
@@ -60,26 +76,23 @@ class Commentary extends Blog
     }
     //TODO: A découper en plusieurs méthodes !!
     public function getCommentary($articles_id){
-//        $row = $this->searchCommentary();
         if(isset($articles_id)){
-//            $sql = $this->getDB()->prepare("SELECT * FROM commentary LEFT JOIN articles ON articles.id = commentary.articles_id WHERE articles_id = :articles_id ORDER BY commentary.date DESC");
-//
-//            $sql->bindParam(':articles_id', $articles_id);
-//            $sql->execute();
-            $row = $this->searchCommentary($articles_id);
-            if(!empty($row)){
-                $this->comment = true;
-            }else {
-                $row = $this->searchArticle($articles_id);
-            }
 
             $i = 0;
             $j = 0;
-//            if($i < intval(count($row))):
-//        $data = $sql->fetchAll();
-//            while($row = $sql->fetch()):
+
+            $this->setArticlesId($articles_id);
+
+            $row = $this->searchCommentary(/*$this->articles_id*/);
+            if(!empty($row)){
+                $this->setComment(true);
+//                $this->comment = true;
+            }else {
+                $row = $this->searchArticle(/*$this->articles_id*/);
+            }
+
             while($j < intval(count($row))):
-//            var_dump($row);
+
                 $contend = $row[$j]['contend'];
                 $title = $row[$j]['title'];
 //                $pseudo = $_SESSION['pseudo'];
@@ -103,8 +116,6 @@ class Commentary extends Blog
                 endif;
             $j++;
             endwhile;
-//            endif;
-//            $sql->closeCursor();
         }
     }
 }

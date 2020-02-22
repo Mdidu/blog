@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+//TODO = transformer en constante les propriétés
 class Blog{
     protected $db; //instance de pdo
 
