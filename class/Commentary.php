@@ -11,7 +11,6 @@ class Commentary extends Blog
 
     public function __construct()
     {
-
         $this->user_id = $_SESSION['id'];
         $this->comment = false;
     }
@@ -31,9 +30,8 @@ class Commentary extends Blog
         $this->comment = $comment;
     }
     //Commentary
-    private function searchCommentary(/*$articles_id*/){
+    private function searchCommentary(){
 
-//        $sql = $this->getDB()->prepare("SELECT * FROM commentary LEFT JOIN articles ON articles.id = commentary.articles_id WHERE articles_id = :articles_id ORDER BY commentary.date DESC");
         $sql = $this->getDB()->prepare("
             SELECT commentary.user_id, commentary.contend AS commentary_contend, pseudo 
             FROM commentary 
@@ -41,7 +39,6 @@ class Commentary extends Blog
             LEFT JOIN user ON commentary.user_id = user.id 
             WHERE articles_id = :articles_id 
             ORDER BY commentary.date DESC");
-//        $sql = $this->getDB()->prepare("SELECT articles.id, title, contend, date, user_id, pseudo FROM articles LEFT JOIN user ON articles.user_id = user.id  WHERE articles.id = :id");
 
         $sql->bindParam(':articles_id', $this->articles_id);
 
@@ -56,10 +53,6 @@ class Commentary extends Blog
         $this->setDateCommentary(time());
         $this->setArticlesId($articles_id);
 
-//        $this->contend_commentary = $contend;
-//        $this->date_commentary = time();
-//        $this->articles_id = $articles;
-//TODO: A MODIFIER
         $sql = $this->getDB()->prepare("INSERT INTO commentary (contend, date, articles_id, user_id) VALUES (:contend, :date, :articles_id, :user_id)");
 
         $sql->bindParam(":contend", $this->contend_commentary);
@@ -78,7 +71,7 @@ class Commentary extends Blog
     public function deleteCommentary(){
 
     }
-    private function searchArticle(/*$articles_id*/){
+    private function searchArticle(){
         $sql = $this->getDB()->prepare("
             SELECT articles.id, title, articles.contend AS article_contend, articles.date, pseudo FROM articles 
             LEFT JOIN user ON articles.user_id = user.id 
@@ -96,9 +89,9 @@ class Commentary extends Blog
             $i = 0;
             $j = 0;
             $this->setArticlesId($articles_id);
-            $row = $this->searchArticle(/*$this->articles_id*/);
+            $row = $this->searchArticle();
 
-            $row_commentary = $this->searchCommentary(/*$this->articles_id*/);
+            $row_commentary = $this->searchCommentary();
             if(!empty($row_commentary)){
                 $this->setComment(true);
             }

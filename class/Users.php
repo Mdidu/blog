@@ -24,7 +24,6 @@ class Users extends Blog
     }
 
     //User
-
     /**
      * @param $pseudo string
      * @return int|null

@@ -9,7 +9,6 @@ class Articles extends Blog
     private $contend;
     private $date;
     private $author;
-//    private $commentary;
 
     public function __construct(/*$title, $contend, $date, $author*/)
     {
@@ -50,9 +49,14 @@ class Articles extends Blog
     /**
      * @return array
      */
-    public function searchArticles(){
+    private function searchArticles(){
 
-        $sql = $this->getDB()->prepare("SELECT * FROM articles LEFT JOIN user ON articles.user_id = user.id ORDER BY date DESC");
+            $sql = $this->getDB()->prepare(
+    "SELECT articles.id AS articles_id, title, contend, pseudo 
+                FROM articles 
+                LEFT JOIN user ON articles.user_id = user.id 
+                ORDER BY date DESC"
+            );
 
         $sql->execute();
         $row = $sql->fetchAll();
@@ -92,23 +96,18 @@ class Articles extends Blog
         /**
          * @param int|null $i
          */
-    public function getArticles(/*$i = NULL*/){
+    public function getArticles(){
 
         $row = $this->searchArticles();
         $i = 0;
 
         while($i < intval(count($row))):
-            //id de l'article
-//            $this->id = $row[$i][0];
-            $this->setId($row[$i][0]);
+
+            $this->setId($row[$i]['articles_id']);
             $this->setTitle($row[$i]["title"]);
             $this->setContend($row[$i]["contend"]);
             $this->setAuthor($row[$i]['pseudo']);
-//            $this->title = $row[$i]["title"];
-//            $this->contend = $row[$i]["contend"];
-//            $this->author = $row[$i]['pseudo'];
-
-//            ?>
+            ?>
         <div class='articles'>
             <div>
                 <div><?= $this->title ?></div>
