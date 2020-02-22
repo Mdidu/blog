@@ -1,5 +1,6 @@
 <?php
 
+//TODO : problème méthode getId idem dans articles.php
 class Commentary extends Blog
 {
     private $articles_id;
@@ -14,6 +15,7 @@ class Commentary extends Blog
         $this->user_id = $_SESSION['id'];
         $this->comment = false;
     }
+    //SETTER
     private function setArticlesId($articles_id){
         $this->articles_id = $articles_id;
     }
@@ -29,6 +31,13 @@ class Commentary extends Blog
     private function setComment($comment){
         $this->comment = $comment;
     }
+    //GETTER
+    private function getId(){ return $this->articles_id; }
+    private function getUserId(){ return $this->user_id; }
+    private function getContend(){ return $this->contend_commentary; }
+    private function getAuthor(){ return $this->author_commentary; }
+    private function getDate(){ return $this->date_commentary; }
+    private function getComment(){ return $this->comment; }
     //Commentary
     private function searchCommentary(){
 
@@ -40,13 +49,15 @@ class Commentary extends Blog
             WHERE articles_id = :articles_id 
             ORDER BY commentary.date DESC");
 
-        $sql->bindParam(':articles_id', $this->articles_id);
+        $sql->bindParam(':articles_id', $this->getId());
 
         $sql->execute();
+
         $row = $sql->fetchAll();
         $sql->closeCursor();
         return $row;
     }
+
     public function addCommentary($articles_id, $contend){
         //TODO: Peut-être kick le timestamp
         $this->setContendCommentary($contend);
@@ -55,15 +66,15 @@ class Commentary extends Blog
 
         $sql = $this->getDB()->prepare("INSERT INTO commentary (contend, date, articles_id, user_id) VALUES (:contend, :date, :articles_id, :user_id)");
 
-        $sql->bindParam(":contend", $this->contend_commentary);
-        $sql->bindParam(":date", $this->date_commentary);
-        $sql->bindParam(":articles_id", $this->articles_id);
-        $sql->bindParam(":user_id", $this->user_id);
+        $sql->bindParam(":contend", $this->getContend());
+        $sql->bindParam(":date", $this->getDate());
+        $sql->bindParam(":articles_id", $this->getId());
+        $sql->bindParam(":user_id", $this->getUserId());
 
         $sql->execute();
 
         $sql->closeCursor();
-        header('location: ../views/sendCommentary.php?article_commentary='.$this->articles_id);
+        header('location: ../views/sendCommentary.php?article_commentary='.$this->getId());
     }
     public function updateCommentary(){
 
@@ -71,12 +82,15 @@ class Commentary extends Blog
     public function deleteCommentary(){
 
     }
+    //TODO: FAIRE UN TRAIT DE CETTE METHODE !! qui est en X2
     private function searchArticle(){
         $sql = $this->getDB()->prepare("
-            SELECT articles.id, title, articles.contend AS article_contend, articles.date, pseudo FROM articles 
+            SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date, pseudo FROM articles 
             LEFT JOIN user ON articles.user_id = user.id 
             WHERE articles.id = :id");
-        $sql->bindParam(':id', $this->articles_id);
+
+        $sql->bindParam(':id', $this->getId());
+
         $sql->execute();
         $row = $sql->fetchAll();
         $sql->closeCursor();
@@ -101,6 +115,7 @@ class Commentary extends Blog
 //                $pseudo = $_SESSION['pseudo'];
                 //si l'article n'est pas sur la page, on affiche l'article
                 if($i === 0):
+                    //TODO: ADD propriété + setter/getter pour les 3?
                     $contend = $row[$i]['article_contend'];
                     $title = $row[$i]['title'];
                     $pseudo = $row[$i]['pseudo'];
@@ -113,14 +128,14 @@ class Commentary extends Blog
                     <?php
                     $i++;
                 endif;
-                if($this->comment === true):
+                if($this->getComment() === true):
 
                     $this->setContendCommentary($row_commentary[$j]['commentary_contend']);
                     $this->setAuthorCommentary($row_commentary[$j]['pseudo']);
                     ?>
                     <div class="commentary">
-                        <div><?= $this->contend_commentary; ?></div>
-                        <div>Ecrit par : <?= $this->author_commentary ?></div>
+                        <div><?= $this->getContend(); ?></div>
+                        <div>Ecrit par : <?= $this->getAuthor() ?></div>
                     </div>
                 <?php
                 endif;

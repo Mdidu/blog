@@ -23,18 +23,36 @@ class Users extends Blog
         $this->rank = 1;
     }
 
+    private function setId($id){
+        $this->id = $id;
+    }
+    private function setPseudo($pseudo){
+        $this->pseudo = $pseudo;
+    }
+    private function setPassword($password){
+        $this->password = $password;
+    }
+    private function setRank($rank){
+        $this->rank = $rank;
+    }
+
+    public function getId(){ return $this->id;}
+    public function getPseudo(){ return $this->pseudo;}
+    public function getPassword(){ return $this->password;}
+    public function getRank(){ return $this->rank;}
     //User
     /**
      * @param $pseudo string
      * @return int|null
      */
     private function search_user($pseudo){
+        $this->setPseudo($pseudo);
         $sql = $this->getDB()->prepare("SELECT id, pseudo FROM user");
 
         $sql->execute();
 
         while($row = $sql->fetch()){
-            if($row['pseudo'] === $pseudo){
+            if($row['pseudo'] === $this->getPseudo()){
                 $id = intval($row['id']);
                 $sql->closeCursor();
 
@@ -46,14 +64,16 @@ class Users extends Blog
     }
 
     public function addUser(){
-        $this->id = $this->search_user($this->pseudo);
+//        $this->id = $this->search_user($this->pseudo);
+        $this->setId($this->search_user($this->getPseudo()));
+//        $this->getId();
         //if $id !== NULL && EXIST
         if(!isset($this->id)){
             $sql = $this->getDB()->prepare('INSERT INTO user (pseudo, password, group_id) VALUES (:pseudo, :password, :group_id)');
 
-            $sql->bindParam(':pseudo', $this->pseudo);
-            $sql->bindParam(':password', $this->password);
-            $sql->bindParam(':group_id', $this->rank);
+            $sql->bindParam(':pseudo', $this->getPseudo());
+            $sql->bindParam(':password', $this->getPassword());
+            $sql->bindParam(':group_id', $this->getRank());
 
             $sql->execute();
 
@@ -85,16 +105,19 @@ class Users extends Blog
          */
     public function checkLog($pseudo, $password){
 
+        $this->setPseudo($pseudo);
+        $this->setPassword($password);
+
         $sql = $this->getDB()->prepare("SELECT * FROM user WHERE pseudo = :pseudo");
 
-        $sql->bindParam(":pseudo", $pseudo);
+        $sql->bindParam(":pseudo", $this->getPseudo());
         $sql->execute();
 
         while($row = $sql->fetch()){
-            if ($pseudo === $row['pseudo'] && password_verify($password, $row['password'])) {
+            if ($this->getPseudo() === $row['pseudo'] && password_verify($this->getPassword(), $row['password'])) {
 
                 $_SESSION['id'] = $row['id'];
-                $_SESSION['pseudo'] = $pseudo;
+                $_SESSION['pseudo'] = $this->getPseudo();
                 $_SESSION['group_id'] = $row['group_id'];
             }
         }

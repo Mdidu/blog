@@ -2,7 +2,6 @@
 require "../class/Blog.php";
 require "../class/Users.php";
 require "../class/Articles.php";
-$article = new Articles();
 ?>
 <!doctype html>
 <html lang="fr">
@@ -39,8 +38,8 @@ $article = new Articles();
     <?php endif; ?>
 </form>
 <?php
-
-$article->getArticle($_POST['article_id']);
+    $article = new Articles();
+    $article->getArticle($_POST['article_id']);
 ?>
 </div>
 </body>
