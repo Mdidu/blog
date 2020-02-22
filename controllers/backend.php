@@ -94,6 +94,10 @@
                     $commentary->addCommentary($_POST['article_commentary'],$_POST['contend']);
                 }
                 break;
+            case "updateArticle":
+                $article = new Articles();
+                $article->updateArticle($_POST['title'], $_POST['contend']);
+                break;
         }
 
     }

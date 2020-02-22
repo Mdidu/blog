@@ -27,22 +27,35 @@
             endif;
         ?>
         <div id="contend">
-
+<!-- utilité???-->
         </div>
         <form action="../controllers/backend.php" method="post">
-<!--        <form action="../class/Articles.php" method="post">-->
+            <?php
+            if(isset($_POST['article_title']) && isset($_POST['article_contend'])):
+            ?>
+            <label for="title"></label>
+            <input type="text" name="title" id="title" placeholder="Entrez le titre de votre article !" value="<?= $_POST['article_title']; ?>">
+
+            <label for="contend"></label>
+            <textarea name="contend" id="contend" placeholder="Entrez le contenu de votre article !" cols="30" rows="10"><?= $_POST['article_contend']; ?></textarea>
+            <input type="hidden" name="id" value="<?= $_POST['article_id'];?>">
+            <input type="hidden" name="page" value="updateArticle">
+            <input type="submit" id="submit">
+        <?php
+        else:
+            ?>
             <label for="title"></label>
             <input type="text" name="title" id="title" placeholder="Entrez le titre de votre article !">
 
             <label for="contend"></label>
-            <input type="text" name="contend" id="contend" placeholder="Entrez le contenu de votre article !">
-
+            <textarea name="contend" id="contend" placeholder="Entrez le contenu de votre article !" cols="30" rows="10"></textarea>
             <input type="hidden" name="page" value="sendArticle">
-            <input type="submit" id="submit">
+            <?php endif; ?>
         </form>
         <?php
             $article = new Articles();
-            $article->getArticles(/*0*/) ;?>
+            $article->getArticles();
+        ?>
     </div>
 </body>
 </html>
