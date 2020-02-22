@@ -19,7 +19,14 @@
 <body>
     <div id="main">
         <h1>Liste des articles</h1>
-
+        <?php
+            if(isset($_SESSION['pseudo'])):
+                ?>
+                <div><a href="../models/logout.php">Déconnexion</a></div>
+                <div><?= "Bienvenue, ".$_SESSION['pseudo'];?></div>
+            <?php
+            endif;
+        ?>
         <div id="contend">
 
         </div>
@@ -36,7 +43,7 @@
         </form>
         <?php
             $article = new Articles();
-            $article->getArticles(0) ;?>
+            $article->getArticles(/*0*/) ;?>
     </div>
 </body>
 </html>

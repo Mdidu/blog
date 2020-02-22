@@ -1,5 +1,5 @@
 <?php
-    session_start();
+//    session_start();
 //require 'Blog.php';
 //TODO: Méthodes à découper 1 méthode = 1 action
 class Articles extends Blog
@@ -38,7 +38,7 @@ class Articles extends Blog
          */
         public function searchArticles(){
 
-            $sql = $this->getDB()->prepare("SELECT * FROM articles LEFT JOIN user ON articles.user_id = user.id");
+            $sql = $this->getDB()->prepare("SELECT * FROM articles LEFT JOIN user ON articles.user_id = user.id ORDER BY date DESC");
 
             $sql->execute();
             $row = $sql->fetchAll();
@@ -77,15 +77,15 @@ class Articles extends Blog
         /**
          * @param int|null $i
          */
-    public function getArticles($i = NULL){
+    public function getArticles(/*$i = NULL*/){
 //        $sql = $this->getDB()->prepare("SELECT * FROM articles");
 //
 //        $sql->execute();
 
         $row = $this->searchArticles();
-
+$i = 0;
 //        var_dump($row);
-        if($i >= 0):
+//        if($i >= 0):
         while($i < intval(count($row))):
             //id de l'article
             $this->id = $row[$i][0];
@@ -114,7 +114,7 @@ class Articles extends Blog
 <?php
             $i++;
     endwhile;
-    endif;
+//    endif;
 //        }
 
 //        $sql->closeCursor();

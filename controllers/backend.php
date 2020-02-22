@@ -13,11 +13,48 @@
      * Ajout commentaire OK
      * affichage commentaire OK
      * Retourner à la liste des articles depuis les commentaires OK
-     * Afficher bouton logOUT sur toutes les pages A FAIRE
+     * Afficher bouton logOUT sur toutes les pages OK
+     * MODIFIER REQUETE AFFICHAGE FILTRER PAR DATE OK
+     * UTILISER LA METHODE SEARCHCOMMENTARY
      * FAIRE LES UPDATE / DELETE
      * DONNER DES DROITS ADMIN/MODO A UN USERS
+     * DESIGN DU SITE
+     * AMELIORER LE CONTROLLER
+     * MIEUX DECOUPTER LES METHODES 1 METHODES = 1 ACTION !
+     * RENDRE SINGLE PAGE SI TEMPS SUFFISANT
     */
     $blog = new Blog();
+
+    /*if(isset($_POST['pseudo']) && isset($_POST['password']) && isset($_POST['page'])){
+        $user = new Users($_POST['pseudo'], password_hash($_POST['password'], PASSWORD_DEFAULT));
+        switch ($_POST['page']) {
+            case "inscription":
+                if(isset($_POST['checkPassword']) && ($_POST['password'] === $_POST['checkPassword'])){
+                    $user->addUser();
+                }
+                break;
+            case "login":
+                    $user->checkLog($_POST['pseudo'], $_POST['password']);
+                break;
+        }
+    }elseif(isset($_POST['contend']) && isset($_POST['page'])){
+        switch ($_POST['page']){
+            case "sendArticle":
+                if (isset($_POST['title'])) {
+                    $article = new Articles();
+
+                    $article->addArticles($_POST['title'], $_POST['contend']);
+                }
+                break;
+            case "sendCommentary":
+                if (isset($_POST['article_commentary'])) {
+                    $commentary = new Commentary();
+
+                    $commentary->addCommentary($_POST['article_commentary'],$_POST['contend']);
+                }
+                break;
+        }
+    }*/
 
 //    echo $_POST['page'];
     if (isset($_POST['page'])) {
@@ -54,10 +91,10 @@
                     $commentary->addCommentary($_POST['article_commentary'],$_POST['contend']);
                 }
                 break;
-            default:
-                break;
         }
+
     }
+
 
 
 

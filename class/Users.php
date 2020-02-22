@@ -107,4 +107,11 @@ class Users extends Blog
 //            echo "Bijoul le cauwde of ".$_SESSION['pseudo'];
         }
     }
+//    public function logout(){
+//        session_unset();
+//
+//        session_destroy();
+//
+//        header('location: ../index.php');
+//    }
 }

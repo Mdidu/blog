@@ -16,7 +16,14 @@
 <body>
 <div id="main">
     <h1>Commentaires :</h1>
-
+    <?php
+    if(isset($_SESSION['pseudo'])):
+        ?>
+        <div><a href="../models/logout.php">Déconnexion</a></div>
+        <div><?= "Bienvenue, ".$_SESSION['pseudo'];?></div>
+    <?php
+    endif;
+    ?>
     <div id="contend">
 
     </div>
