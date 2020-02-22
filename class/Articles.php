@@ -125,13 +125,3 @@ class Articles extends Blog
     endwhile;
     }
 }
-
-//Crée une instance de blog
-//$blog = new Blog();
-
-//Crée un nouvel article !!
-//$data = new Articles($_POST['title'], $_POST['contend'], time(), $_SESSION['id']);
-//$data->getArticles(0);
-//$data->addArticles();
-
-//$data->getArticles(0);

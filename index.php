@@ -14,7 +14,7 @@
     <a href="views/inscription.php" id="inscription">Inscription</a>
     <a href="views/login.php" id="login">Login</a>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.0-rc.5/vue.js"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.0-rc.5/vue.js"></script>-->
     <script src="public/js/script.js"></script>
 </body>
 </html>
