@@ -54,7 +54,7 @@
         </form>
         <?php
             $article = new Articles();
-            $article->getArticles();
+            $article->getAllArticles();
         ?>
     </div>
 </body>

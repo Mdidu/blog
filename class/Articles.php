@@ -104,7 +104,20 @@ class Articles extends Blog
         $sql->closeCursor();
         header('location: ../views/sendArticle.php');
     }
-    public function deleteArticles(){
+    public function deleteArticle($id){
+
+        $this->setId($id);
+
+        $sql = $this->getDB()->prepare("DELETE FROM articles WHERE id = :id");
+
+//        LEFT JOIN commentary ON articles.id = commentary.articles_id
+        $sql->bindParam(":id", $this->getId());
+
+        $sql->execute();
+        $sql->closeCursor();
+
+//        $this->deleteComments();
+        header('location: ../views/sendArticle.php');
 
     }
 
@@ -127,7 +140,7 @@ class Articles extends Blog
             SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date, pseudo FROM articles 
             LEFT JOIN user ON articles.user_id = user.id 
             WHERE articles.id = :id");
-        $sql->bindParam(':id', $this->getId());
+        $sql->bindParam(':id', $this->id);
         $sql->execute();
         $row = $sql->fetchAll();
         $sql->closeCursor();
@@ -136,7 +149,7 @@ class Articles extends Blog
         /**
          * @param int|null $i
          */
-    public function getArticles(){
+    public function getAllArticles(){
 
         $row = $this->searchArticles();
         $i = 0;
@@ -167,8 +180,9 @@ class Articles extends Blog
                 <input type="submit" value="Modifier article">
             </form>
 
-            <form action="deleteArticle.php" method="get">
-                <input type="hidden" name="articleD" id="articleDelete" value="<?= $this->getId()?>">
+            <form action="../controllers/backend.php" method="post">
+                <input type="hidden" name="article_id" class="articleDelete" value="<?= $this->getId()?>">
+                <input type="hidden" name="page" value="deleteArticle">
                 <input type="submit" value="Supprimer article">
             </form>
         </div>
@@ -191,6 +205,7 @@ class Articles extends Blog
         </div>
         <div><?= $this->getContend()?></div>
         <div>Ecrit par : <?= $this->getAuthor() ?></div>
+
         <a href="sendArticle.php"> Retourner à la liste des articles</a>
 <?php
     }

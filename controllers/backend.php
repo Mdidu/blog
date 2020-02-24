@@ -18,12 +18,12 @@
      * UTILISER LA METHODE SEARCHCOMMENTARY OK
      * AFFICHER PSEUDO QUI A POSTE LE COMMENTAIRE OK
      * REVOIR LES REQUETES POUR AVOIR DES APPELS EXPLICITE OK
-     * FAIRE LES UPDATE  EN COURS
-     * FAIRE LES DELETE 
+     * FAIRE LES UPDATE  OK
+     * FAIRE LES DELETE  OK
      * AFFICHER DATE DU POST/MODIFICATION?
      * DONNER DES DROITS ADMIN/MODO A UN USER, VIA UNE PAGE AVEC TOUS LES USERS?
      * DESIGN DU SITE
-     * AFFICHER UN MESSAGE SELON CE QU'il SAIT PASSE ET SI CA A FONCTIONNE
+     * AFFICHER UN MESSAGE SELON CE QU'Il SAIT PASSE ET SI CA A FONCTIONNE
      * AMELIORER LE CONTROLLER
      * MIEUX DECOUPTER LES METHODES 1 METHODE = 1 ACTION !
      * RENDRE SINGLE PAGE SI TEMPS SUFFISANT
@@ -100,8 +100,20 @@
                 $article = new Articles();
                 $article->updateArticle($_POST['title'], $_POST['contend']);
                 break;
-        }
+            case "updateCommentary":
+                $commentary = new Commentary();
 
+                $commentary->updateCommentary($_POST['contend'], $_POST['article_id']);
+                break;
+            case "deleteArticle":
+                $article = new Articles();
+                $article->deleteArticle($_POST['article_id']);
+                break;
+            case "deleteCommentary":
+                $commentary = new Commentary();
+                $commentary->deleteCommentary($_POST['commentary_id'], $_POST['article_id']);
+                break;
+        }
     }
 
 

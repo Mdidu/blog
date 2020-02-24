@@ -40,7 +40,7 @@
     </form>
     <?php
         $commentary = new Commentary();
-        $commentary->getCommentary($_GET['article_commentary']);
+        $commentary->getAllCommentary($_GET['article_commentary']);
     ?>
     <a href="sendArticle.php">Liste articles</a>
 </div>
