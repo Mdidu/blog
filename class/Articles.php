@@ -1,8 +1,10 @@
 <?php
-
+require_once "../trait/SearchArticle.php";
 //TODO: Méthodes à découper 1 méthode = 1 action
 class Articles extends Blog
 {
+
+    use SearchArticle;
     /**
     * @var int
      */
@@ -96,35 +98,35 @@ class Articles extends Blog
     }
 
 
-    //TODO: Diviser en une méthode d'affichage
+//    //TODO: Diviser en une méthode d'affichage
+////    private function searchArticle(){
+////        $sql = $this->getDB()->prepare(
+////"SELECT articles.id AS articles_id, title, contend, user_id, pseudo FROM articles
+////            LEFT JOIN user ON articles.user_id = user.id
+////            WHERE articles.id = :id");
+////
+////        $sql->bindParam(':id', $this->getId());
+////
+////        $sql->execute();
+////        $row = $sql->fetchAll();
+////        $sql->closeCursor();
+////        return $row;
+////    }
+////todo en faire un trait
+//    /**
+//    * @return array search one article
+//     */
 //    private function searchArticle(){
-//        $sql = $this->getDB()->prepare(
-//"SELECT articles.id AS articles_id, title, contend, user_id, pseudo FROM articles
+//        $sql = $this->getDB()->prepare("
+//            SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date, pseudo FROM articles
 //            LEFT JOIN user ON articles.user_id = user.id
 //            WHERE articles.id = :id");
-//
-//        $sql->bindParam(':id', $this->getId());
-//
+//        $sql->bindParam(':id', $this->id);
 //        $sql->execute();
 //        $row = $sql->fetchAll();
 //        $sql->closeCursor();
 //        return $row;
 //    }
-//todo en faire un trait
-    /**
-    * @return array search one article
-     */
-    private function searchArticle(){
-        $sql = $this->getDB()->prepare("
-            SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date, pseudo FROM articles 
-            LEFT JOIN user ON articles.user_id = user.id 
-            WHERE articles.id = :id");
-        $sql->bindParam(':id', $this->id);
-        $sql->execute();
-        $row = $sql->fetchAll();
-        $sql->closeCursor();
-        return $row;
-    }
     /**
     * @return array
      */
@@ -190,13 +192,11 @@ class Articles extends Blog
 
         $sql = $this->getDB()->prepare("DELETE FROM articles WHERE id = :id");
 
-//        LEFT JOIN commentary ON articles.id = commentary.articles_id
         $sql->bindParam(":id", $this->getId());
 
         $sql->execute();
         $sql->closeCursor();
 
-//        $this->deleteComments();
         header('location: ../views/sendArticle.php');
 
     }
@@ -206,23 +206,14 @@ class Articles extends Blog
      */
     public function getArticle($id){
         $this->setId($id);
-        $row = $this->searchArticle();
+        $row = $this->search();
 
-//        $this->setTitle($row[0]['title']);
-//        $this->setContend($row[0]['article_contend']);
-//        $this->setAuthor($row[0]['pseudo']);
+        $this->setTitle($row[0]['title']);
+        $this->setContend($row[0]['article_contend']);
+        $this->setAuthor($row[0]['pseudo']);
 
         require_once "../views/display_Articles.php";
-        ?>
-<!--        <div class='articles'>-->
-<!--            <div>-->
-<!--                <div>--><?//= $this->getTitle() ?><!--</div>-->
-<!--            </div>-->
-<!--            <div>--><?//= $this->getContend()?><!--</div>-->
-<!--            <div>Ecrit par : --><?//= $this->getAuthor() ?><!--</div>-->
-<!--        </div>-->
-
-
+       ?>
         <a href="sendArticle.php"> Retourner à la liste des articles</a>
 <?php
     }
@@ -232,43 +223,11 @@ class Articles extends Blog
         $row = $this->searchAllArticles();
         $i = 0;
 
-//        while($i < intval(count($row))):
-
 //            $this->setId($row[$i]['article_id']);
 //            $this->setTitle($row[$i]["title"]);
 //            $this->setContend($row[$i]["article_contend"]);
 //            $this->setAuthor($row[$i]['pseudo']);
 
             require_once "../views/display_Articles.php";
-            ?>
-<!--        <div class='articles'>-->
-<!--            <div>-->
-<!--                <div>--><?//= $this->getTitle()?><!--</div>-->
-<!--            </div>-->
-<!--            <div>--><?//= $this->getContend()?><!--</div>-->
-<!--            <div>Ecrit par : --><?//= $this->getAuthor()?><!--</div>-->
-<!--        </div>-->
-
-<!--            <form action="sendCommentary.php" method="get">-->
-<!--                <input type="hidden" name="article_commentary" id="article_commentary" value="--><?//= $this->getId()?><!--">-->
-<!--                <input type="submit" value="Ajouter/Voir un commentaire">-->
-<!--            </form>-->
-<!---->
-<!--            <form action="updateArticle.php" method="post">-->
-<!--                <input type="hidden" name="article_title" class="articleUpdate" value="--><?//= $this->getTitle()?><!--">-->
-<!--                <input type="hidden" name="article_contend" class="articleUpdate" value="--><?//= $this->getContend()?><!--">-->
-<!--                <input type="hidden" name="article_id" class="articleUpdate" value="--><?//= $this->getId()?><!--">-->
-<!--                <input type="submit" value="Modifier article">-->
-<!--            </form>-->
-<!---->
-<!--            <form action="../controllers/backend.php" method="post">-->
-<!--                <input type="hidden" name="article_id" class="articleDelete" value="--><?//= $this->getId()?><!--">-->
-<!--                <input type="hidden" name="page" value="deleteArticle">-->
-<!--                <input type="submit" value="Supprimer article">-->
-<!--            </form>-->
-
-<?php
-//            $i++;
-//    endwhile;
     }
 }

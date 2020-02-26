@@ -1,8 +1,12 @@
 <?php
 
+    require_once "../trait/SearchArticle.php";
 //TODO : problème méthode getId idem dans articles.php
 class Commentary extends Blog
 {
+
+    use SearchArticle;
+
     /**
      * @var int
      */
@@ -163,19 +167,19 @@ class Commentary extends Blog
     /**
      * @return array search one article
      */
-    private function searchArticle(){
-        $sql = $this->getDB()->prepare("
-            SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date, pseudo FROM articles 
-            LEFT JOIN user ON articles.user_id = user.id 
-            WHERE articles.id = :id");
-
-        $sql->bindParam(':id', $this->getId());
-
-        $sql->execute();
-        $row = $sql->fetchAll();
-        $sql->closeCursor();
-        return $row;
-    }
+//    private function searchArticle(){
+//        $sql = $this->getDB()->prepare("
+//            SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date, pseudo FROM articles
+//            LEFT JOIN user ON articles.user_id = user.id
+//            WHERE articles.id = :id");
+//
+//        $sql->bindParam(':id', $this->getId());
+//
+//        $sql->execute();
+//        $row = $sql->fetchAll();
+//        $sql->closeCursor();
+//        return $row;
+//    }
 
     /**
      * @param $articles_id int
@@ -251,13 +255,7 @@ class Commentary extends Blog
         $this->setAuthorCommentary($row[$i]['pseudo']);
 
         $this->setComment(true);
-//
-//        ?>
-<!--        <div class="commentary">-->
-<!--            <div>--><?//= $this->getContend(); ?><!--</div>-->
-<!--            <div>Ecrit par : --><?//= $this->getAuthor() ?><!--</div>-->
-<!--        </div>-->
-        <?php
+
         require_once "../views/display_Commentary.php";
     }
 
@@ -273,64 +271,14 @@ class Commentary extends Blog
             $j = 0;
             $this->setArticlesId($articles_id);
 
-            $row_article = $this->searchArticle();
+            $row_article = $this->search();
 
             $row = $this->searchAllCommentary();
-//            $row = $this->searchArticle();
-//
-//            $row_commentary = $this->searchAllCommentary();
+
             if(!empty($row)){
-//            if(!empty($row_commentary)){
                 $this->setComment(true);
             }
             require_once "../views/display_Commentary.php";
-//
-//            while($j < intval(count($row)) || $j < intval(count($row_commentary))):
-//
-////                $pseudo = $_SESSION['pseudo'];
-//                //si l'article n'est pas sur la page, on affiche l'article
-//                if($i === 0):
-//                    //TODO: ADD propriété + setter/getter pour les 3?
-//                    $contend = $row[$i]['article_contend'];
-//                    $title = $row[$i]['title'];
-//                    $pseudo = $row[$i]['pseudo'];
-//                    ?>
-<!--                    <div class='articles'>-->
-<!--                        <div>--><?//= $title ?><!--</div>-->
-<!--                        <div>--><?//= $contend ?><!--</div>-->
-<!--                        <div>Ecrit par : --><?//= $pseudo ?><!--</div>-->
-<!--                    </div>-->
-<!--                    --><?php
-//                    $i++;
-//                endif;
-//                if($this->getComment() === true):
-//
-//                    $this->setCommentaryId($row_commentary[$j]['commentary_id']);
-//                    $this->setContendCommentary($row_commentary[$j]['commentary_contend']);
-//                    $this->setAuthorCommentary($row_commentary[$j]['pseudo']);
-//                    ?>
-<!--                    <div class="commentary">-->
-<!--                        <div>--><?//= $this->getContend(); ?><!--</div>-->
-<!--                        <div>Ecrit par : --><?//= $this->getAuthor() ?><!--</div>-->
-<!--                    </div>-->
-<!---->
-<!--                    <form action="updateCommentary.php" method="post">-->
-<!--                        <input type="hidden" name="commentary_contend" class="commentaryUpdate" value="--><?//= $this->getContend()?><!--">-->
-<!--                        <input type="hidden" name="commentary_id" class="commentaryUpdate" value="--><?//= $this->getCommentaryId()?><!--">-->
-<!--                        <input type="hidden" name="article_id" class="commentaryUpdate" value="--><?//= $this->getId()?><!--">-->
-<!--                        <input type="submit" value="Modifier le commentaire">-->
-<!--                    </form>-->
-<!---->
-<!--                    <form action="../controllers/backend.php" method="post">-->
-<!--                        <input type="hidden" name="commentary_id" class="commentaryDelete" value="--><?//= $this->getCommentaryId()?><!--">-->
-<!--                        <input type="hidden" name="article_id" class="commentaryDelete" value="--><?//= $this->getId()?><!--">-->
-<!--                        <input type="hidden" name="page" value="deleteCommentary">-->
-<!--                        <input type="submit" value="Supprimer commentaire">-->
-<!--                    </form>-->
-<!--                --><?php
-//                endif;
-//                $j++;
-//            endwhile;
         }
     }
 }

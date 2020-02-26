@@ -1,27 +1,6 @@
-<?php //var_dump($row);
+<?php
     foreach ($row as $test){
-//        var_dump($test);
-//        var_dump($row);
-//        echo $test['article_id'];
-//        var_dump($test);
-//        $this->setId($row[$i]['article_id']);
-//        $this->setTitle($row[$i]["title"]);
-//        $this->setContend($row[$i]["article_contend"]);
-//        $this->setAuthor($row[$i]['pseudo']);$this->setContendCommentary($row[0]['contend']);
-//        $this->setAuthorCommentary($row[0]['pseudo']);
 
-//
-        ?>
-<!--        <div class="commentary">-->
-<!--            <div>--><?//= $this->getContend(); ?><!--</div>-->
-<!--            <div>Ecrit par : --><?//= $this->getAuthor() ?><!--</div>-->
-<!--        </div>-->
-
-<!----><?php
-
-//        while($j < intval(count($row)) || $j < intval(count($row_commentary))):
-
-        //                $pseudo = $_SESSION['pseudo'];
         //si l'article n'est pas sur la page, on affiche l'article
         if($j === 0):
         //TODO: ADD propriété + setter/getter pour les 3?
