@@ -18,9 +18,13 @@ class Articles extends Blog
      */
     private $contend;
     /**
-    * @var int pulishing date
+     * @var string
      */
     private $date;
+    /**
+     * @var int pulishing date
+     */
+    private $timestamp;
     /**
     * @var string author of articles
      */
@@ -58,7 +62,13 @@ class Articles extends Blog
     * @param $date int
      */
     private function setDate($date){
-        $this->date = $date;
+        $this->date = date('d/m/Y à H:i:s', $date);
+    }
+//    /**
+//     * @param $date int
+//     */
+    private function setTimestamp($timestamp){
+        $this->timestamp = $timestamp;
     }
     /**
     * @param $author string
@@ -83,6 +93,10 @@ class Articles extends Blog
      */
     public function getDate(){ return $this->date; }
     /**
+     * @return int
+     */
+    public function getTimestamp(){ return $this->timestamp; }
+    /**
     * @return string
      */
     public function getAuthor(){ return $this->author; }
@@ -93,56 +107,27 @@ class Articles extends Blog
     private function setArticles($title, $contend){
         $this->title = $title;
         $this->contend = $contend;
-        $this->date = time();
+        $this->timestamp = time();
         $this->author = $_SESSION['id'];
     }
 
 
-//    //TODO: Diviser en une méthode d'affichage
-////    private function searchArticle(){
-////        $sql = $this->getDB()->prepare(
-////"SELECT articles.id AS articles_id, title, contend, user_id, pseudo FROM articles
-////            LEFT JOIN user ON articles.user_id = user.id
-////            WHERE articles.id = :id");
-////
-////        $sql->bindParam(':id', $this->getId());
-////
-////        $sql->execute();
-////        $row = $sql->fetchAll();
-////        $sql->closeCursor();
-////        return $row;
-////    }
-////todo en faire un trait
-//    /**
-//    * @return array search one article
-//     */
-//    private function searchArticle(){
-//        $sql = $this->getDB()->prepare("
-//            SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date, pseudo FROM articles
-//            LEFT JOIN user ON articles.user_id = user.id
-//            WHERE articles.id = :id");
-//        $sql->bindParam(':id', $this->id);
-//        $sql->execute();
-//        $row = $sql->fetchAll();
-//        $sql->closeCursor();
-//        return $row;
-//    }
     /**
     * @return array
      */
     private function searchAllArticles(){
 
             $sql = $this->getDB()->prepare(
-    "SELECT articles.id AS article_id, title, articles.contend AS article_contend, pseudo 
+    "SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date AS article_date, pseudo 
                 FROM articles 
                 LEFT JOIN user ON articles.user_id = user.id 
                 ORDER BY date DESC"
             );
 
         $sql->execute();
-        $row = $sql->fetchAll();
+        $rows = $sql->fetchAll();
         $sql->closeCursor();
-        return $row;
+        return $rows;
     }
 
     /**
@@ -156,7 +141,7 @@ class Articles extends Blog
 
         $sql->bindParam(":title", $this->getTitle());
         $sql->bindParam(":contend", $this->getContend());
-        $sql->bindParam(":date", $this->getDate());
+        $sql->bindParam(":date", $this->getTimestamp());
         $sql->bindParam(":user_id", $this->getAuthor());
 
         $sql->execute();
@@ -206,11 +191,12 @@ class Articles extends Blog
      */
     public function getArticle($id){
         $this->setId($id);
-        $row = $this->search();
+        $rows = $this->search();
 
-        $this->setTitle($row[0]['title']);
-        $this->setContend($row[0]['article_contend']);
-        $this->setAuthor($row[0]['pseudo']);
+        $this->setTitle($rows[0]['title']);
+        $this->setContend($rows[0]['article_contend']);
+        $this->setTimestamp($rows[0]['article_date']);
+        $this->setAuthor($rows[0]['pseudo']);
 
         require_once "../views/display_Articles.php";
        ?>
@@ -220,13 +206,13 @@ class Articles extends Blog
 
     public function getAllArticles(){
 
-        $row = $this->searchAllArticles();
-        $i = 0;
+        $rows = $this->searchAllArticles();
+//        $i = 0;
 
-//            $this->setId($row[$i]['article_id']);
-//            $this->setTitle($row[$i]["title"]);
-//            $this->setContend($row[$i]["article_contend"]);
-//            $this->setAuthor($row[$i]['pseudo']);
+//            $this->setId($rows[$i]['article_id']);
+//            $this->setTitle($rows[$i]["title"]);
+//            $this->setContend($rows[$i]["article_contend"]);
+//            $this->setAuthor($rows[$i]['pseudo']);
 
             require_once "../views/display_Articles.php";
     }

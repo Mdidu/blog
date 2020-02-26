@@ -7,8 +7,7 @@
     /*TODO=
      * MIEUX DECOUPTER LES METHODES 1 METHODE = 1 ACTION ! OK
      * faire de search article un trait OK
-     * renommé les row en rows puis dans le foreach row en rows et test en row !!
-     * AFFICHER DATE DU POST/MODIFICATION?
+     * AFFICHER DATE DU POST/MODIFICATION? OK
      * DONNER DES DROITS ADMIN/MODO A UN USER, VIA UNE PAGE AVEC TOUS LES USERS?
      * une fois les droits fait faire en sorte que les update/delete apparaissent que si un admin/modo ou l'auteur visionne l'élément
      * DESIGN DU SITE

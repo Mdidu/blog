@@ -26,6 +26,10 @@ class Commentary extends Blog
     /**
      * @var int
      */
+    private $date_timestamp_commentary;
+    /**
+     * @var string
+     */
     private $date_commentary;
     /**
      * @var string
@@ -68,7 +72,13 @@ class Commentary extends Blog
      * @param $date_commentary int
      */
     private function setDateCommentary($date_commentary){
-        $this->date_commentary = $date_commentary;
+        $this->date_commentary = date('d/m/Y à H:i:s' ,$date_commentary);
+    }
+    /**
+     * @param $date_commentary int
+     */
+    private function setTimestampCommentary($date_timestamp_commentary){
+        $this->date_timestamp_commentary = $date_timestamp_commentary;
     }
 
     /**
@@ -117,6 +127,10 @@ class Commentary extends Blog
     private function getDate(){ return $this->date_commentary; }
 
     /**
+     * @return int
+     */
+    private function getTimestamp(){ return $this->date_timestamp_commentary; }
+    /**
      * @return bool
      */
     private function getComment(){ return $this->comment; }
@@ -127,7 +141,7 @@ class Commentary extends Blog
      */
     private function searchCommentary(){
         $sql = $this->getDB()->prepare("
-            SELECT commentary.id AS commentary_id, user_id, contend AS commentary_contend, pseudo
+            SELECT commentary.id AS commentary_id, user_id, contend AS commentary_contend, commentary.date AS commentary_date, pseudo
             FROM commentary
             LEFT JOIN user ON commentary.user_id = user.id
             WHERE commentary.id = :id");
@@ -136,9 +150,9 @@ class Commentary extends Blog
 
         $sql->execute();
 
-        $row = $sql->fetchAll();
+        $rows = $sql->fetchAll();
         $sql->closeCursor();
-        return $row;
+        return $rows;
     }
 
     /**
@@ -147,7 +161,7 @@ class Commentary extends Blog
     private function searchAllCommentary(){
 
         $sql = $this->getDB()->prepare("
-            SELECT commentary.id AS commentary_id, commentary.user_id, commentary.contend AS commentary_contend, pseudo
+            SELECT commentary.id AS commentary_id, commentary.user_id, commentary.contend AS commentary_contend, commentary.date AS commentary_date, pseudo
             FROM commentary
             LEFT JOIN articles ON articles.id = commentary.articles_id
             LEFT JOIN user ON commentary.user_id = user.id
@@ -158,28 +172,10 @@ class Commentary extends Blog
 
         $sql->execute();
 
-        $row = $sql->fetchAll();
+        $rows = $sql->fetchAll();
         $sql->closeCursor();
-        return $row;
+        return $rows;
     }
-    //EN FAIRE UN TRAIT
-
-    /**
-     * @return array search one article
-     */
-//    private function searchArticle(){
-//        $sql = $this->getDB()->prepare("
-//            SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date, pseudo FROM articles
-//            LEFT JOIN user ON articles.user_id = user.id
-//            WHERE articles.id = :id");
-//
-//        $sql->bindParam(':id', $this->getId());
-//
-//        $sql->execute();
-//        $row = $sql->fetchAll();
-//        $sql->closeCursor();
-//        return $row;
-//    }
 
     /**
      * @param $articles_id int
@@ -188,13 +184,14 @@ class Commentary extends Blog
     public function addCommentary($articles_id, $contend){
         //TODO: Peut-être kick le timestamp
         $this->setContendCommentary($contend);
-        $this->setDateCommentary(time());
+        //
+        $this->setTimestampCommentary(time());
         $this->setArticlesId($articles_id);
 
         $sql = $this->getDB()->prepare("INSERT INTO commentary (contend, date, articles_id, user_id) VALUES (:contend, :date, :articles_id, :user_id)");
 
         $sql->bindParam(":contend", $this->getContend());
-        $sql->bindParam(":date", $this->getDate());
+        $sql->bindParam(":date", $this->getTimestamp());
         $sql->bindParam(":articles_id", $this->getId());
         $sql->bindParam(":user_id", $this->getUserId());
 
@@ -248,11 +245,11 @@ class Commentary extends Blog
 
         $this->setCommentaryId($commentary_id);
 
-        $j= NULL;
-        $i= 0;
-        $row = $this->searchCommentary();
-        $this->setContendCommentary($row[$i]['contend']);
-        $this->setAuthorCommentary($row[$i]['pseudo']);
+        $i = NULL;
+
+        $rows = $this->searchCommentary();
+        $this->setContendCommentary($rows[0]['commentary_contend']);
+        $this->setAuthorCommentary($rows[0]['pseudo']);
 
         $this->setComment(true);
 
@@ -268,14 +265,13 @@ class Commentary extends Blog
         if(isset($articles_id)){
 
             $i = 0;
-            $j = 0;
             $this->setArticlesId($articles_id);
 
             $row_article = $this->search();
 
-            $row = $this->searchAllCommentary();
+            $rows = $this->searchAllCommentary();
 
-            if(!empty($row)){
+            if(!empty($rows)){
                 $this->setComment(true);
             }
             require_once "../views/display_Commentary.php";

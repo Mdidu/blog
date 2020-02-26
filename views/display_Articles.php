@@ -1,12 +1,11 @@
 <?php //var_dump($row);
-    foreach ($row as $test){
-//        var_dump($row);
-//        echo $test['article_id'];
-//        var_dump($test);
-        $this->setId($row[$i]['article_id']);
-        $this->setTitle($row[$i]["title"]);
-        $this->setContend($row[$i]["article_contend"]);
-        $this->setAuthor($row[$i]['pseudo']);
+    foreach ($rows as $row){
+
+        $this->setId($row['article_id']);
+        $this->setTitle($row["title"]);
+        $this->setContend($row["article_contend"]);
+        $this->setDate($row["article_date"]);
+        $this->setAuthor($row['pseudo']);
 
 ?>
 <div class='articles'>
@@ -14,7 +13,7 @@
         <div><?= $this->getTitle() ?></div>
     </div>
     <div><?= $this->getContend()?></div>
-    <div>Ecrit par : <?= $this->getAuthor() ?></div>
+    <div>Ecrit par : <?= $this->getAuthor() ?> à <?= $this->getDate();?></div>
 </div>
 
 <form action="sendCommentary.php" method="get">
@@ -35,5 +34,5 @@
     <input type="submit" value="Supprimer article">
 </form>
 <?php
-        $i++;
+//        $i++;
     }

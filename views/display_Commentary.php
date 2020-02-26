@@ -1,33 +1,35 @@
 <?php
-    foreach ($row as $test){
+    foreach ($rows as $row){
 
         //si l'article n'est pas sur la page, on affiche l'article
-        if($j === 0):
+        if($i === 0):
         //TODO: ADD propriété + setter/getter pour les 3?
-        $contend = $row_article[$j]['article_contend'];
-        $title = $row_article[$j]['title'];
-        $pseudo = $row_article[$j]['pseudo'];
+        $contend = $row_article[$i]['article_contend'];
+        $title = $row_article[$i]['title'];
+        $date = date('d/m/Y à H:i:s', $row_article[$i]['article_date']);
+        $pseudo = $row_article[$i]['pseudo'];
         ?>
         <div class='articles'>
             <div><?= $title ?></div>
             <div><?= $contend ?></div>
-            <div>Ecrit par : <?= $pseudo ?></div>
+            <div>Ecrit par : <?= $pseudo ?> à <?= $date?></div>
         </div>
         <?php
-        $j++;
+        $i++;
     endif;
         if($this->getComment() === true):
 
-            $this->setCommentaryId($test['commentary_id']);
-            $this->setContendCommentary($test['commentary_contend']);
-            $this->setAuthorCommentary($test['pseudo']);
+            $this->setCommentaryId($row['commentary_id']);
+            $this->setContendCommentary($row['commentary_contend']);
+            $this->setDateCommentary($row['commentary_date']);
+            $this->setAuthorCommentary($row['pseudo']);
             ?>
             <div class="commentary">
                 <div><?= $this->getContend(); ?></div>
-                <div>Ecrit par : <?= $this->getAuthor() ?></div>
+                <div>Ecrit par : <?= $this->getAuthor() ?> le <?= $this->getDate()?></div>
             </div>
 
-            <?php if($j === 1):?>
+            <?php if($i === 1):?>
             <form action="updateCommentary.php" method="post">
                 <input type="hidden" name="commentary_contend" class="commentaryUpdate" value="<?= $this->getContend()?>">
                 <input type="hidden" name="commentary_id" class="commentaryUpdate" value="<?= $this->getCommentaryId()?>">
@@ -44,5 +46,5 @@
         <?php
             endif;
         endif;
-        $i++;
+//        $i++;
     }
