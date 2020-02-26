@@ -12,7 +12,7 @@
         <div class='articles'>
             <div><?= $title ?></div>
             <div><?= $contend ?></div>
-            <div>Ecrit par : <?= $pseudo ?> à <?= $date?></div>
+            <div>De <?= $pseudo ?> , Le <?= $date?></div>
         </div>
         <?php
         $i++;
@@ -25,8 +25,8 @@
             $this->setAuthorCommentary($row['pseudo']);
             ?>
             <div class="commentary">
-                <div><?= $this->getContend(); ?></div>
-                <div>Ecrit par : <?= $this->getAuthor() ?> le <?= $this->getDate()?></div>
+                <div><?= $this->getAuthor() ?>: <?= $this->getContend(); ?></div>
+                <div>Le <?= $this->getDate()?></div>
             </div>
 
             <?php if($i === 1):?>

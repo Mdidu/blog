@@ -13,7 +13,7 @@
         <div><?= $this->getTitle() ?></div>
     </div>
     <div><?= $this->getContend()?></div>
-    <div>Ecrit par : <?= $this->getAuthor() ?> à <?= $this->getDate();?></div>
+    <div>De <?= $this->getAuthor() ?> , Le <?= $this->getDate();?></div>
 </div>
 
 <form action="sendCommentary.php" method="get">
