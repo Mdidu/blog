@@ -1,16 +1,8 @@
 <?php
-    require "../models/connect.php";
+//    require "../models/connect.php";
+require_once "header.php";
     ?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+
 <form action="../controllers/backend.php" method="post">
     <label for="pseudo"></label>
     <input type="text" name="pseudo" id="pseudo" placeholder="Entrez votre pseudo">
@@ -22,7 +14,5 @@
 
     <input type="submit" id="submit">
 </form>
-<script src="../public/js/script.js"></script>
-
-</body>
-</html>
+<?php
+require_once "footer.php";

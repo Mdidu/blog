@@ -3,18 +3,9 @@
     require "../class/Users.php";
     require "../class/Articles.php";
     require "../class/Commentary.php";
+    require_once "header.php";
     $commentary = new Commentary();
 ?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Articles</title>
-</head>
-<body>
 <div id="main">
     <h1>Commentaires modifiable :</h1>
     <?php
@@ -42,10 +33,10 @@
             <?php endif; ?>
     </form>
     <?php
-//        $commentary->getCommentary($_POST['article_id']);
+
         //modifier la normal en allcommentary
-        $commentary->getCommentary2($_POST['commentary_id']);
+        $commentary->getCommentary($_POST['commentary_id']);
     ?>
 </div>
-</body>
-</html>
+<?php
+require_once "footer.php";

@@ -2,17 +2,8 @@
 require "../class/Blog.php";
 require "../class/Users.php";
 require "../class/Articles.php";
+require_once "header.php";
 ?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Articles</title>
-</head>
-<body>
 <div id="main">
     <h1>Article modifiable</h1>
     <?php
@@ -42,5 +33,5 @@ require "../class/Articles.php";
     $article->getArticle($_POST['article_id']);
 ?>
 </div>
-</body>
-</html>
+<?php
+require_once "footer.php";

@@ -2,23 +2,33 @@
 session_start();
 //TODO = transformer en constante les propriétés
 class Blog{
+
     protected $db; //instance de pdo
 
+    /**
+     * @var string
+     */
     private $servername = "localhost";
+    /**
+     * @var string
+     */
     private $username = "root";
+    /**
+     * @var string
+     */
     private $password = "";
+    /**
+     * @var string
+     */
     private $dbname = "blog";
 
     public function __construct()
-//    public function __construct($db)
     {
-//        $this->setDb($db);
 
     }
-    //Database
-//    public function setDb(PDO $db){
-//        $this->db = $db;
-//    }
+    /**
+     * @return PDO
+     */
     public function getDB(){
         $db = new PDO('mysql:host='.$this->servername.';dbname='.$this->dbname.';charset=utf8', $this->username, $this->password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);

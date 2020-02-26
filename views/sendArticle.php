@@ -1,21 +1,12 @@
 <?php
 //    require "../models/backend.php";
 //    require "../controllers/backend.php";
-    require "../class/Blog.php";
-    require "../class/Users.php";
-    require "../class/Articles.php";
+require "../class/Blog.php";
+require "../class/Users.php";
+require "../class/Articles.php";
 //    $blog = new Blog();
-    ?>
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Articles</title>
-</head>
-<body>
+require_once "header.php";
+?>
     <div id="main">
         <h1>Liste des articles</h1>
         <?php
@@ -57,5 +48,5 @@
             $article->getAllArticles();
         ?>
     </div>
-</body>
-</html>
+<?php
+require_once "footer.php";
