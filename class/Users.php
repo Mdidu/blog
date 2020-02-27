@@ -1,11 +1,11 @@
 <?php
-//require "Blog.php";
 
     /**
      * Class Users
      */
-class Users extends Blog
+class Users
 {
+    use Db;
     /**
      * @var int
      */
@@ -26,12 +26,10 @@ class Users extends Blog
     /**
      * Users constructor
      * @param $pseudo string
-//     * @param $password string
      */
-    public function __construct($pseudo/*, $password*/)
+    public function __construct($pseudo)
     {
         $this->pseudo = $pseudo;
-//        $this->password = $password;
         $this->rank = 1;
     }
 
@@ -105,11 +103,13 @@ class Users extends Blog
         return NULL;
     }
 
+    /**
+     * @param $password string
+     */
     public function addUser($password){
         $this->setId($this->searchUserId($this->getPseudo()));
         $this->setPassword($password);
 
-        //if $id !== NULL && EXIST
         if(!isset($this->id)){
             $sql = $this->getDB()->prepare('INSERT INTO user (pseudo, password, group_id) VALUES (:pseudo, :password, :group_id)');
 
@@ -122,29 +122,9 @@ class Users extends Blog
             $sql->closeCursor();
         }
 
-        header('location: ../views/login.php');
-    }
-    public function updateUser(){
-
-    }
-    public function deleteUser(){
-
-    }
-    private function searchUser(){
-        $sql = $this->getDB()->prepare("SELECT id, pseudo, group_id FROM user");
-
-        $sql->execute();
-        $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
-        $sql->closeCursor();
-        return $rows;
-    }
-    public function getUser(){
-        $rows = $this->searchUser();
-
-//        require "../views/getUser.php";
+        header('location: ../public/views/login.php');
     }
 
-//TODO: peut-être à couper en 2 méthodes !!
         /**
          * @param $pseudo string
          * @param $password string
@@ -170,7 +150,7 @@ class Users extends Blog
         $sql->closeCursor();
 
         if(isset($_SESSION['pseudo'])){
-            header('location: ../views/sendArticle.php');
+            header('location: ../public/views/sendArticle.php');
         }
     }
 }

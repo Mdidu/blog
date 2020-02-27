@@ -1,10 +1,11 @@
 <?php
-require_once "../trait/SearchArticle.php";
-//TODO: Méthodes à découper 1 méthode = 1 action
-class Articles extends Blog
-{
 
+
+class Articles
+{
+    use Db;
     use SearchArticle;
+
     /**
     * @var int
      */
@@ -22,7 +23,7 @@ class Articles extends Blog
      */
     private $date;
     /**
-     * @var int pulishing date
+     * @var int
      */
     private $timestamp;
     /**
@@ -30,15 +31,6 @@ class Articles extends Blog
      */
     private $author;
 
-    public function __construct(/*$title, $contend, $date, $author*/)
-    {
-//        $this->title = $title;
-//        $this->contend = $contend;
-//        $this->date = $date;
-//        $this->author = $author;
-    }
-
-    //Articles
 
     /**
     * @param $id int
@@ -59,14 +51,15 @@ class Articles extends Blog
         $this->contend = $contend;
     }
     /**
-    * @param $date int
+    * @param $timestamp int
      */
-    private function setDate($date){
-        $this->date = date('d/m/Y à H:i:s', $date);
+    private function setDate($timestamp){
+        $this->date = date('d/m/Y à H:i:s', $timestamp);
     }
-//    /**
-//     * @param $date int
-//     */
+
+    /**
+     * @param $timestamp int
+     */
     private function setTimestamp($timestamp){
         $this->timestamp = $timestamp;
     }
@@ -104,13 +97,17 @@ class Articles extends Blog
      * @param $title string
      * @param $contend string
      */
+
+    /**
+     * @param $title string
+     * @param $contend string
+     */
     private function setArticles($title, $contend){
         $this->title = $title;
         $this->contend = $contend;
         $this->timestamp = time();
         $this->author = $_SESSION['id'];
     }
-
 
     /**
     * @return array
@@ -148,8 +145,9 @@ class Articles extends Blog
 
         $sql->closeCursor();
 
-        header('location: ../views/sendArticle.php');
+        header('location: ../public/views/sendArticle.php');
     }
+
     /**
     * @param $title string
     * @param $contend string
@@ -166,8 +164,10 @@ class Articles extends Blog
 
         $sql->execute();
         $sql->closeCursor();
-        header('location: ../views/sendArticle.php');
+
+        header('location: ../public/views/sendArticle.php');
     }
+
     /**
     * @param $id int
      */
@@ -182,14 +182,14 @@ class Articles extends Blog
         $sql->execute();
         $sql->closeCursor();
 
-        header('location: ../views/sendArticle.php');
-
+        header('location: ../public/views/sendArticle.php');
     }
 
     /**
     * @param $id int
      */
     public function getArticle($id){
+
         $this->setId($id);
         $rows = $this->search();
 
@@ -198,22 +198,13 @@ class Articles extends Blog
         $this->setTimestamp($rows[0]['article_date']);
         $this->setAuthor($rows[0]['pseudo']);
 
-        require_once "../views/display_Articles.php";
-       ?>
-        <a href="sendArticle.php"> Retourner à la liste des articles</a>
-<?php
+        require_once "../views/getArticles.php";
     }
 
     public function getAllArticles(){
 
         $rows = $this->searchAllArticles();
-//        $i = 0;
 
-//            $this->setId($rows[$i]['article_id']);
-//            $this->setTitle($rows[$i]["title"]);
-//            $this->setContend($rows[$i]["article_contend"]);
-//            $this->setAuthor($rows[$i]['pseudo']);
-
-            require_once "../views/display_Articles.php";
+        require_once "../views/getArticles.php";
     }
 }
