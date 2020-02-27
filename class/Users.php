@@ -26,12 +26,12 @@ class Users extends Blog
     /**
      * Users constructor
      * @param $pseudo string
-     * @param $password string
+//     * @param $password string
      */
-    public function __construct($pseudo, $password)
+    public function __construct($pseudo/*, $password*/)
     {
         $this->pseudo = $pseudo;
-        $this->password = $password;
+//        $this->password = $password;
         $this->rank = 1;
     }
 
@@ -87,7 +87,7 @@ class Users extends Blog
      * @param $pseudo string
      * @return int|null
      */
-    private function searchUser($pseudo){
+    private function searchUserId($pseudo){
         $this->setPseudo($pseudo);
         $sql = $this->getDB()->prepare("SELECT id, pseudo FROM user");
 
@@ -105,8 +105,9 @@ class Users extends Blog
         return NULL;
     }
 
-    public function addUser(){
-        $this->setId($this->searchUser($this->getPseudo()));
+    public function addUser($password){
+        $this->setId($this->searchUserId($this->getPseudo()));
+        $this->setPassword($password);
 
         //if $id !== NULL && EXIST
         if(!isset($this->id)){
@@ -129,16 +130,19 @@ class Users extends Blog
     public function deleteUser(){
 
     }
-//    public function getUser(){
-//        $sql = $this->db->prepare("SELECT * FROM user");
-//
-//        $sql->execute();
-//        while($row = $sql->fetch()){
-//            $id = $row['id'];
-//            $sql->closeCursor();
-//            echo $row['pseudo'];
-//        }
-//    }
+    private function searchUser(){
+        $sql = $this->getDB()->prepare("SELECT id, pseudo, group_id FROM user");
+
+        $sql->execute();
+        $rows = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $sql->closeCursor();
+        return $rows;
+    }
+    public function getUser(){
+        $rows = $this->searchUser();
+
+        require "../views/getUser.php";
+    }
 //TODO: peut-être à couper en 2 méthodes !!
         /**
          * @param $pseudo string

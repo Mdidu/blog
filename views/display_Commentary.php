@@ -29,7 +29,7 @@
                 <div>Le <?= $this->getDate()?></div>
             </div>
 
-            <?php if($i === 1):?>
+            <?php if($i === 1 && ($_SESSION['group_id'] == 2 || $_SESSION['group_id'] == 3)):?>
             <form action="updateCommentary.php" method="post">
                 <input type="hidden" name="commentary_contend" class="commentaryUpdate" value="<?= $this->getContend()?>">
                 <input type="hidden" name="commentary_id" class="commentaryUpdate" value="<?= $this->getCommentaryId()?>">

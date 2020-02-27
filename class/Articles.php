@@ -118,7 +118,7 @@ class Articles extends Blog
     private function searchAllArticles(){
 
             $sql = $this->getDB()->prepare(
-    "SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date AS article_date, pseudo 
+    "SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date AS article_date, pseudo
                 FROM articles 
                 LEFT JOIN user ON articles.user_id = user.id 
                 ORDER BY date DESC"

@@ -8,8 +8,8 @@
      * MIEUX DECOUPTER LES METHODES 1 METHODE = 1 ACTION ! OK
      * faire de search article un trait OK
      * AFFICHER DATE DU POST/MODIFICATION? OK
+     * une fois les droits fait faire en sorte que les update/delete apparaissent que si un admin/modo ou l'auteur visionne l'élément OK
      * DONNER DES DROITS ADMIN/MODO A UN USER, VIA UNE PAGE AVEC TOUS LES USERS?
-     * une fois les droits fait faire en sorte que les update/delete apparaissent que si un admin/modo ou l'auteur visionne l'élément
      * DESIGN DU SITE
      * AFFICHER UN MESSAGE SELON CE QU'Il SAIT PASSE ET SI CA A FONCTIONNE
      * AMELIORER LE CONTROLLER
@@ -53,14 +53,14 @@
             case "inscription":
                 if (isset($_POST['pseudo']) && isset($_POST['password']) && isset($_POST['checkPassword']) && ($_POST['password'] === $_POST['checkPassword'])) {
 //                    addUsers($_POST['pseudo'], password_hash($_POST['password'], PASSWORD_DEFAULT));
-                    $user = new Users($_POST['pseudo'], password_hash($_POST['password'], PASSWORD_DEFAULT));
-                    $user->addUser();
+                    $user = new Users($_POST['pseudo']/*, password_hash($_POST['password'], PASSWORD_DEFAULT)*/);
+                    $user->addUser(password_hash($_POST['password'], PASSWORD_DEFAULT));
                 }
                 break;
             case "login":
                 if (isset($_POST['pseudo']) && isset($_POST['password'])) {
                     //checkLog($_POST['pseudo'], $_POST['password']);
-                    $user = new Users($_POST['pseudo'], password_hash($_POST['password'], PASSWORD_DEFAULT));
+                    $user = new Users($_POST['pseudo']/*, password_hash($_POST['password'], PASSWORD_DEFAULT)*/);
                     $user->checkLog($_POST['pseudo'], $_POST['password']);
                 }
                 break;

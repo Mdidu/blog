@@ -20,7 +20,7 @@
     <input type="hidden" name="article_commentary" id="article_commentary" value="<?= $this->getId()?>">
     <input type="submit" value="Ajouter/Voir un commentaire">
 </form>
-
+<?php if($_SESSION['group_id'] == 2 || $_SESSION['group_id'] == 3):?>
 <form action="updateArticle.php" method="post">
     <input type="hidden" name="article_title" class="articleUpdate" value="<?= $this->getTitle()?>">
     <input type="hidden" name="article_contend" class="articleUpdate" value="<?= $this->getContend()?>">
@@ -34,5 +34,10 @@
     <input type="submit" value="Supprimer article">
 </form>
 <?php
-//        $i++;
+    endif;
+?>
+    <?php
     }
+    ?>
+
+<a href="updateDroit.php">user</a>
