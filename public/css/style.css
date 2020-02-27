@@ -2,13 +2,67 @@ body {
     margin: 0;
     padding: 0;
 }
+form{
+    display: flex;
+    flex-direction: column;
+}
+a {
+    margin-top: 10px;
+    text-decoration: none;
+}
+input {
+     margin: 5px;
+ }
 #main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-form{
+#inscription {
+    margin-top: 12%;
+}
+#login {
+     margin-top: 4%;
+ }
+form#login, form#inscription{
+    text-align: center;
+    margin-top: 12%;
+}
+#buttons{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+
+}
+.title {
+    font-size: 22px;
+    font-weight: bold;
+}
+.user{
+    font-weight: bold;
+}
+.contend, .authorCommentary {
+    font-size: 18px;
+    margin-top: 5px;
+}
+.authorArticle, .date{
+    font-size: 13px;
+}
+.articles{
+    width: 45%;
+}
+.commentary{
+    margin-top: 1%;
+}
+.button {
+    margin: 1px;
+    margin-top: 5px;
+    padding: 0;
+    width: 160px;
+    height: 30px;
+    border: 2px solid #1ECD97;
+    border-radius: 40px;
+    background: lightslategray;
+    color: black;
+    font-size: 12px;
 }
