@@ -11,9 +11,10 @@
 <div class='articles'>
     <div>
         <div><?= $this->getTitle() ?></div>
+        <div>Publié par <?= $this->getAuthor() ?>x</div>
+        <div>Le <?= $this->getDate();?></div>
     </div>
     <div><?= $this->getContend()?></div>
-    <div>De <?= $this->getAuthor() ?> , Le <?= $this->getDate();?></div>
 </div>
 
 <form action="sendCommentary.php" method="get">
@@ -38,6 +39,3 @@
 ?>
     <?php
     }
-    ?>
-
-<a href="updateDroit.php">user</a>

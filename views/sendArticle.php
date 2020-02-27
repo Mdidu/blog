@@ -7,7 +7,6 @@ require "../class/Articles.php";
 //    $blog = new Blog();
 require_once "header.php";
 ?>
-    <div id="main">
         <h1>Liste des articles</h1>
         <?php
             if(isset($_SESSION['pseudo'])):
@@ -41,12 +40,12 @@ require_once "header.php";
             <label for="contend"></label>
             <textarea name="contend" id="contend" placeholder="Entrez le contenu de votre article !" cols="30" rows="10"></textarea>
             <input type="hidden" name="page" value="sendArticle">
+            <input type="submit" id="submit">
             <?php endif; ?>
         </form>
         <?php
             $article = new Articles();
             $article->getAllArticles();
         ?>
-    </div>
 <?php
 require_once "footer.php";

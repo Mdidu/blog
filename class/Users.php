@@ -141,8 +141,9 @@ class Users extends Blog
     public function getUser(){
         $rows = $this->searchUser();
 
-        require "../views/getUser.php";
+//        require "../views/getUser.php";
     }
+
 //TODO: peut-être à couper en 2 méthodes !!
         /**
          * @param $pseudo string

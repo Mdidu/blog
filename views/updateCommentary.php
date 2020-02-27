@@ -6,7 +6,6 @@
     require_once "header.php";
     $commentary = new Commentary();
 ?>
-<div id="main">
     <h1>Commentaires modifiable :</h1>
     <?php
         if(isset($_SESSION['pseudo'])):
@@ -37,6 +36,6 @@
         //modifier la normal en allcommentary
         $commentary->getCommentary($_POST['commentary_id']);
     ?>
-</div>
+    <a href="sendCommentary.php?article_commentary=<?= $_POST['article_id']; ?>">Retour à la liste des commentaire</a>
 <?php
 require_once "footer.php";

@@ -12,8 +12,9 @@
         $i = 0;
         while($i < 3):
             ?>
-            <input type="radio" name="rank">
+            <input type="radio" name="rank" value="<?= $rows[$i]['group_id']?>"><label for="rank"><?= $rows[$i]['group_id']?></label>
         <?php
+        $i++;
         endwhile;
         ?>
             <input type="hidden" id="rank" name="rank" value="<?= $this->getRank();?>">
