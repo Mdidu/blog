@@ -1,10 +1,9 @@
 <?php
 
-    require_once "../trait/SearchArticle.php";
 //TODO : problème méthode getId idem dans articles.php
-class Commentary extends Blog
+class Commentary
 {
-
+    use Db;
     use SearchArticle;
 
     /**
@@ -36,7 +35,7 @@ class Commentary extends Blog
      */
     private $author_commentary;
     /**
-     * @var string
+     * @var bool
      */
     private $comment;
 
@@ -45,7 +44,6 @@ class Commentary extends Blog
         $this->user_id = $_SESSION['id'];
         $this->comment = false;
     }
-    //SETTER
 
     /**
      * @param $articles_id int
@@ -69,10 +67,10 @@ class Commentary extends Blog
     }
 
     /**
-     * @param $date_commentary int
+     * @param $date_timestamp_commentary int
      */
-    private function setDateCommentary($date_commentary){
-        $this->date_commentary = date('d/m/Y à H:i:s' ,$date_commentary);
+    private function setDateCommentary($date_timestamp_commentary){
+        $this->date_commentary = date('d/m/Y à H:i:s' ,$date_timestamp_commentary);
     }
     /**
      * @param $date_commentary int
@@ -94,7 +92,6 @@ class Commentary extends Blog
     private function setComment($comment){
         $this->comment = $comment;
     }
-    //GETTER
 
     /**
      * @return int
@@ -122,7 +119,7 @@ class Commentary extends Blog
     private function getAuthor(){ return $this->author_commentary; }
 
     /**
-     * @return int
+     * @return string
      */
     private function getDate(){ return $this->date_commentary; }
 
@@ -199,7 +196,8 @@ class Commentary extends Blog
         $sql->execute();
 
         $sql->closeCursor();
-        header('location: ../views/sendCommentary.php?article_commentary='.$this->getId());
+
+        header('location: ../public/views/sendCommentary.php?article_commentary='.$this->getId());
     }
 
     /**
@@ -218,7 +216,8 @@ class Commentary extends Blog
 
         $sql->execute();
         $sql->closeCursor();
-        header('location: ../views/sendCommentary.php?article_commentary='.$this->getId());
+
+        header('location: ../public/views/sendCommentary.php?article_commentary='.$this->getId());
     }
 
     /**
@@ -236,7 +235,7 @@ class Commentary extends Blog
         $sql->execute();
         $sql->closeCursor();
 
-        header('location: ../views/sendCommentary.php?article_commentary='.$this->getId());
+        header('location: ../public/views/sendCommentary.php?article_commentary='.$this->getId());
     }
 
     /**
@@ -254,10 +253,8 @@ class Commentary extends Blog
 
         $this->setComment(true);
 
-        require_once "../views/display_Commentary.php";
+        require_once "../views/getCommentary.php";
     }
-
-    //TODO: A découper en plusieurs méthodes !!
 
     /**
      * @param $articles_id int
@@ -275,7 +272,7 @@ class Commentary extends Blog
             if(!empty($rows)){
                 $this->setComment(true);
             }
-            require_once "../views/display_Commentary.php";
+            require_once "../views/getCommentary.php";
         }
     }
 }
