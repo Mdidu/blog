@@ -1,10 +1,13 @@
 <?php
 
-    /**
-     * Trait SearchArticle
-     */
+/**
+ * Trait SearchArticle
+ */
     trait SearchArticle
     {
+        /**
+         * @return array
+         */
         public function search(){
             $id = $this->getId();
             $sql = $this->getDB()->prepare("
