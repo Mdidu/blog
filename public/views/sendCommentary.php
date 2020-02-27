@@ -1,8 +1,8 @@
 <?php
-    require "../../trait/Db.php";
+    require_once "../../trait/Db.php";
     require_once "../../trait/SearchArticle.php";
-    require "../../class/Users.php";
-    require "../../class/Commentary.php";
+    require_once "../../class/Users.php";
+    require_once "../../class/Commentary.php";
     require_once "header.php";
     ?>
     <h1>Commentaires :</h1>
@@ -21,4 +21,4 @@
         $commentary = new Commentary();
         $commentary->getAllCommentary($_GET['article_commentary']);
 
-require_once "footer.php";
+    require_once "footer.php";

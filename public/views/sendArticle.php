@@ -1,8 +1,8 @@
 <?php
-require "../../trait/Db.php";
+require_once "../../trait/Db.php";
 require_once "../../trait/SearchArticle.php";
-require "../../class/Users.php";
-require "../../class/Articles.php";
+require_once "../../class/Users.php";
+require_once "../../class/Articles.php";
 
 require_once "header.php";
 ?>
