@@ -1,10 +1,9 @@
 <?php
     require "../../trait/Db.php";
-require_once "../../trait/SearchArticle.php";
+    require_once "../../trait/SearchArticle.php";
     require "../../class/Users.php";
-//    require "../../class/Articles.php";
     require "../../class/Commentary.php";
-require_once "header.php";
+    require_once "header.php";
     $commentary = new Commentary();
 ?>
     <h1>Commentaires modifiable :</h1>

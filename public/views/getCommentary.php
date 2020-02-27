@@ -3,7 +3,7 @@
 
         //if the article is not on the page, we display the article
         if($i === 0):
-        //TODO: ADD propriété + setter/getter pour les 3?
+
         $contend = $row_article[$i]['article_contend'];
         $title = $row_article[$i]['title'];
         $date = date('d/m/Y à H:i:s', $row_article[$i]['article_date']);

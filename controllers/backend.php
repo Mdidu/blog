@@ -1,16 +1,9 @@
 <?php
     require "../trait/Db.php";
-require_once "../trait/SearchArticle.php";
+    require_once "../trait/SearchArticle.php";
     require "../class/Users.php";
     require "../class/Articles.php";
     require "../class/Commentary.php";
-
-    /*TODO=
-     * DONNER DES DROITS ADMIN/MODO A UN USER, VIA UNE PAGE AVEC TOUS LES USERS?
-     * AFFICHER UN MESSAGE SELON CE QU'Il SAIT PASSE ET SI CA A FONCTIONNE
-     * AMELIORER LE CONTROLLER
-    */
-//    $blog = new Blog();
 
     if (isset($_POST['page'])) {
         switch ($_POST['page']) {
