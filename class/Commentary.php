@@ -140,13 +140,14 @@ class Commentary extends Blog
      * @return array search one commentary
      */
     private function searchCommentary(){
+        $commentaryId = $this->getCommentaryId();
         $sql = $this->getDB()->prepare("
             SELECT commentary.id AS commentary_id, user_id, contend AS commentary_contend, commentary.date AS commentary_date, pseudo
             FROM commentary
             LEFT JOIN user ON commentary.user_id = user.id
             WHERE commentary.id = :id");
 
-        $sql->bindParam(':id', $this->getCommentaryId());
+        $sql->bindParam(':id', $commentaryId);
 
         $sql->execute();
 
@@ -159,7 +160,7 @@ class Commentary extends Blog
      * @return array
      */
     private function searchAllCommentary(){
-
+        $articleId = $this->getId();
         $sql = $this->getDB()->prepare("
             SELECT commentary.id AS commentary_id, commentary.user_id, commentary.contend AS commentary_contend, commentary.date AS commentary_date, pseudo
             FROM commentary
@@ -168,7 +169,7 @@ class Commentary extends Blog
             WHERE articles_id = :articles_id
             ORDER BY commentary.date DESC");
 
-        $sql->bindParam(':articles_id', $this->getId());
+        $sql->bindParam(':articles_id', $articleId);
 
         $sql->execute();
 
