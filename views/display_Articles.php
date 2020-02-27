@@ -11,7 +11,7 @@
 <div class='articles'>
     <div>
         <div><?= $this->getTitle() ?></div>
-        <div>Publié par <?= $this->getAuthor() ?>x</div>
+        <div>Publié par <?= $this->getAuthor() ?></div>
         <div>Le <?= $this->getDate();?></div>
     </div>
     <div><?= $this->getContend()?></div>
