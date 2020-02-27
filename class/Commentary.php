@@ -1,6 +1,5 @@
 <?php
 
-//TODO : problème méthode getId idem dans articles.php
 class Commentary
 {
     use Db;
@@ -180,7 +179,6 @@ class Commentary
      * @param $contend string
      */
     public function addCommentary($articles_id, $contend){
-        //TODO: Peut-être kick le timestamp
         $this->setContendCommentary($contend);
         //
         $this->setTimestampCommentary(time());

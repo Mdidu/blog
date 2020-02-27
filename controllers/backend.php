@@ -32,7 +32,7 @@
                 if (isset($_POST['contend']) && isset($_POST['article_commentary'])) {
 
                     $commentary = new Commentary();
-                    $commentary->addCommentary($_POST['article_commentary'],$_POST['contend']);
+                    $commentary->addCommentary($_POST['article_commentary'], $_POST['contend']);
                 }
                 break;
             case "updateArticle":
