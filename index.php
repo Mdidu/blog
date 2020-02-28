@@ -1,9 +1,9 @@
 <?php
 
-session_start();
-$_SESSION['page'] = "index";
+    session_start();
+    $_SESSION['page'] = "index";
 
-include_once "public/views/header.php";
+    include_once "public/views/header.php";
 
 ?>
     <h1>Blog</h1>
@@ -12,4 +12,4 @@ include_once "public/views/header.php";
     <a href="public/views/login.php" id="login">Login</a>
 
 <?php
-include_once "public/views/footer.php";
+    include_once "public/views/footer.php";

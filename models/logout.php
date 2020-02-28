@@ -1,8 +1,8 @@
 <?php
-session_start();
+    session_start();
 
-session_unset();
+    session_unset();
 
-session_destroy();
+    session_destroy();
 
-header('location: ../index.php');
+    header('location: ../index.php');

@@ -1,14 +1,15 @@
 <?php
 
-/**
- * Trait SearchArticle
- */
+    /**
+     * Trait SearchArticle
+     */
     trait SearchArticle
     {
         /**
          * @return array
          */
-        public function search(){
+        public function search()
+        {
             $id = $this->getId();
             $sql = $this->getDB()->prepare("
             SELECT articles.id AS article_id, title, articles.contend AS article_contend, articles.date AS article_date, pseudo, group_id 
