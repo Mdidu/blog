@@ -66,3 +66,9 @@ form#login, form#register{
     color: black;
     font-size: 12px;
 }
+
+@media(max-width: 567px) {
+    #buttons{
+        flex-direction: column;
+    }
+}
