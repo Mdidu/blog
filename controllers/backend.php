@@ -7,7 +7,7 @@
 
     if (isset($_POST['page'])) {
         switch ($_POST['page']) {
-            case "inscription":
+            case "register":
                 if (isset($_POST['pseudo']) && isset($_POST['password']) && isset($_POST['checkPassword']) && ($_POST['password'] === $_POST['checkPassword'])) {
 
                     $user = new Users($_POST['pseudo']);

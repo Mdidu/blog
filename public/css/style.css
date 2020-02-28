@@ -19,13 +19,13 @@ input {
     justify-content: center;
     align-items: center;
 }
-#inscription {
+#register {
     margin-top: 12%;
 }
 #login {
      margin-top: 4%;
  }
-form#login, form#inscription{
+form#login, form#register{
     text-align: center;
     margin-top: 12%;
 }
