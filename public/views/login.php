@@ -1,6 +1,6 @@
 <?php
 
-require_once "header.php";
+include_once "header.php";
     ?>
 <h1>Connexion</h1>
 <form action="../../controllers/backend.php" method="post" id="login">
@@ -15,4 +15,4 @@ require_once "header.php";
     <input type="submit" id="submit" class="button">
 </form>
 <?php
-require_once "footer.php";
+include_once "footer.php";

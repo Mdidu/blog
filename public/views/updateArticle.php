@@ -3,7 +3,7 @@ require_once "../../trait/Db.php";
 require_once "../../trait/SearchArticle.php";
 require_once "../../class/Users.php";
 require_once "../../class/Articles.php";
-require_once "header.php";
+include_once "header.php";
 ?>
     <h1>Article modifiable</h1>
 
@@ -26,4 +26,4 @@ require_once "header.php";
     $article = new Articles();
     $article->getArticle($_POST['article_id']);
 
-require_once "footer.php";
+include_once "footer.php";

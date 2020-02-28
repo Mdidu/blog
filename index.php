@@ -3,7 +3,7 @@
 session_start();
 $_SESSION['page'] = "index";
 
-require_once "public/views/header.php";
+include_once "public/views/header.php";
 
 ?>
     <h1>Blog</h1>
@@ -12,4 +12,4 @@ require_once "public/views/header.php";
     <a href="public/views/login.php" id="login">Login</a>
 
 <?php
-require_once "public/views/footer.php";
+include_once "public/views/footer.php";

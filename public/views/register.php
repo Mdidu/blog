@@ -1,6 +1,6 @@
 <?php
 
-require_once "header.php";
+include_once "header.php";
 ?>
 <h1>Inscription</h1>
 <form action="../../controllers/backend.php" method="post" id="register">
@@ -19,4 +19,4 @@ require_once "header.php";
 
 </form>
 <?php
-require_once "footer.php";
+include_once "footer.php";

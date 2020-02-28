@@ -26,3 +26,5 @@
         $commentary->getCommentary($_POST['commentary_id']);
     ?>
     <a href="sendCommentary.php?article_commentary=<?= $_POST['article_id']; ?>">Retour à la liste des commentaire</a>
+<?php
+include_once "footer.php";

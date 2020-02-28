@@ -4,7 +4,7 @@ require_once "../../trait/SearchArticle.php";
 require_once "../../class/Users.php";
 require_once "../../class/Articles.php";
 
-require_once "header.php";
+include_once "header.php";
 ?>
         <h1>Liste des articles</h1>
 
@@ -38,4 +38,4 @@ require_once "header.php";
             $article = new Articles();
             $article->getAllArticles();
 
-require_once "footer.php";
+include_once "footer.php";
