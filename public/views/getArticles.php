@@ -23,7 +23,7 @@
                            value="<?= $this->getId() ?>">
                     <input type="submit" value="Ajouter/Voir un commentaire" class="button">
                 </form>
-                <?php if ($_SESSION['group_id'] == 2 || $_SESSION['group_id'] == 3): ?>
+                <?php if ($_SESSION['group_id'] == 2 || $_SESSION['group_id'] == 3  || $_SESSION['pseudo'] == $this->getAuthor()): ?>
                     <form action="updateArticle.php" method="post">
                         <input type="hidden" name="article_title" class="articleUpdate"
                                value="<?= $this->getTitle() ?>">

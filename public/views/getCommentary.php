@@ -34,7 +34,7 @@
                 <div class="date">Le <?= $this->getDate() ?></div>
             </div>
 
-            <?php if ($i === 1 && ($_SESSION['group_id'] == 2 || $_SESSION['group_id'] == 3)): ?>
+            <?php if ($i === 1 && ($_SESSION['group_id'] == 2 || $_SESSION['group_id'] == 3 || $_SESSION['pseudo'] == $this->getAuthor())): ?>
             <div id="buttons">
                 <form action="updateCommentary.php" method="post">
                     <input type="hidden" name="commentary_contend" class="commentaryUpdate"
