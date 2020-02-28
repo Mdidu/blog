@@ -2,58 +2,73 @@ body {
     margin: 0;
     padding: 0;
 }
-form{
+
+form {
     display: flex;
     flex-direction: column;
 }
+
 a {
     margin-top: 10px;
     text-decoration: none;
 }
+
 input {
-     margin: 5px;
- }
+    margin: 5px;
+}
+
 #main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
 #register {
     margin-top: 12%;
 }
+
 #login {
-     margin-top: 4%;
- }
-form#login, form#register{
+    margin-top: 4%;
+}
+
+form#login, form#register {
     text-align: center;
     margin-top: 12%;
 }
-#buttons{
+
+#buttons {
     display: flex;
     flex-direction: row;
 
 }
+
 .title {
     font-size: 22px;
     font-weight: bold;
 }
-.user{
+
+.user {
     font-weight: bold;
 }
+
 .contend, .authorCommentary {
     font-size: 18px;
     margin-top: 5px;
 }
-.authorArticle, .date{
+
+.authorArticle, .date {
     font-size: 13px;
 }
-.articles{
+
+.articles {
     width: 45%;
 }
-.commentary{
+
+.commentary {
     margin-top: 1%;
 }
+
 .button {
     margin: 1px;
     margin-top: 5px;
@@ -67,8 +82,8 @@ form#login, form#register{
     font-size: 12px;
 }
 
-@media(max-width: 567px) {
-    #buttons{
+@media (max-width: 567px) {
+    #buttons {
         flex-direction: column;
     }
 }
