@@ -169,7 +169,11 @@
             $sql->closeCursor();
 
             if (isset($_SESSION['pseudo'])) {
+
                 header('location: ../public/views/sendArticle.php');
+            }else {
+
+                header('refresh: 1;url=../public/views/login.php');
             }
         }
     }
