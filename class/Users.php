@@ -113,9 +113,9 @@ class Users
         if(!isset($this->id)){
             $sql = $this->getDB()->prepare('INSERT INTO user (pseudo, password, group_id) VALUES (:pseudo, :password, :group_id)');
 
-            $sql->bindParam(':pseudo', $this->getPseudo());
-            $sql->bindParam(':password', $this->getPassword());
-            $sql->bindParam(':group_id', $this->getRank());
+            $sql->bindValue(':pseudo', $this->getPseudo());
+            $sql->bindValue(':password', $this->getPassword());
+            $sql->bindValue(':group_id', $this->getRank());
 
             $sql->execute();
 
@@ -136,7 +136,7 @@ class Users
 
         $sql = $this->getDB()->prepare("SELECT * FROM user WHERE pseudo = :pseudo");
 
-        $sql->bindParam(":pseudo", $this->getPseudo());
+        $sql->bindValue(":pseudo", $this->getPseudo());
         $sql->execute();
 
         while($row = $sql->fetch()){

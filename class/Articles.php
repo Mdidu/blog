@@ -136,10 +136,10 @@ class Articles
 
         $sql = $this->getDB()->prepare("INSERT INTO articles (title, contend, date, user_id) VALUES (:title, :contend, :date, :user_id)");
 
-        $sql->bindParam(":title", $this->getTitle());
-        $sql->bindParam(":contend", $this->getContend());
-        $sql->bindParam(":date", $this->getTimestamp());
-        $sql->bindParam(":user_id", $this->getAuthor());
+        $sql->bindValue(":title", $this->getTitle());
+        $sql->bindValue(":contend", $this->getContend());
+        $sql->bindValue(":date", $this->getTimestamp());
+        $sql->bindValue(":user_id", $this->getAuthor());
 
         $sql->execute();
 
@@ -158,9 +158,9 @@ class Articles
         $this->setId($_POST['id']);
 
         $sql = $this->getDB()->prepare("UPDATE articles SET title = :title, contend = :contend WHERE id = :id");
-        $sql->bindParam(":title", $this->getTitle());
-        $sql->bindParam(":contend", $this->getContend());
-        $sql->bindParam(":id", $this->getId());
+        $sql->bindValue(":title", $this->getTitle());
+        $sql->bindValue(":contend", $this->getContend());
+        $sql->bindValue(":id", $this->getId());
 
         $sql->execute();
         $sql->closeCursor();
@@ -177,7 +177,7 @@ class Articles
 
         $sql = $this->getDB()->prepare("DELETE FROM articles WHERE id = :id");
 
-        $sql->bindParam(":id", $this->getId());
+        $sql->bindValue(":id", $this->getId());
 
         $sql->execute();
         $sql->closeCursor();

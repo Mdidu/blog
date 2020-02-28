@@ -170,14 +170,14 @@
          */
         private function searchCommentary()
         {
-            $commentaryId = $this->getCommentaryId();
+//            $commentaryId = $this->getCommentaryId();
             $sql = $this->getDB()->prepare("
             SELECT commentary.id AS commentary_id, user_id, contend AS commentary_contend, commentary.date AS commentary_date, pseudo
             FROM commentary
             LEFT JOIN user ON commentary.user_id = user.id
             WHERE commentary.id = :id");
 
-            $sql->bindParam(':id', $commentaryId);
+            $sql->bindValue(':id', $this->getCommentaryId());
 
             $sql->execute();
 
@@ -191,7 +191,7 @@
          */
         private function searchAllCommentary()
         {
-            $articleId = $this->getId();
+//            $articleId = $this->getId();
             $sql = $this->getDB()->prepare("
             SELECT commentary.id AS commentary_id, commentary.user_id, commentary.contend AS commentary_contend, commentary.date AS commentary_date, pseudo
             FROM commentary
@@ -200,7 +200,7 @@
             WHERE articles_id = :articles_id
             ORDER BY commentary.date DESC");
 
-            $sql->bindParam(':articles_id', $articleId);
+            $sql->bindValue(':articles_id', $this->getId());
 
             $sql->execute();
 
@@ -222,10 +222,10 @@
 
             $sql = $this->getDB()->prepare("INSERT INTO commentary (contend, date, articles_id, user_id) VALUES (:contend, :date, :articles_id, :user_id)");
 
-            $sql->bindParam(":contend", $this->getContend());
-            $sql->bindParam(":date", $this->getTimestamp());
-            $sql->bindParam(":articles_id", $this->getId());
-            $sql->bindParam(":user_id", $this->getUserId());
+            $sql->bindValue(":contend", $this->getContend());
+            $sql->bindValue(":date", $this->getTimestamp());
+            $sql->bindValue(":articles_id", $this->getId());
+            $sql->bindValue(":user_id", $this->getUserId());
 
             $sql->execute();
 
@@ -246,8 +246,8 @@
 
             $sql = $this->getDB()->prepare("UPDATE commentary SET contend = :contend WHERE id = :id");
 
-            $sql->bindParam(":contend", $this->getContend());
-            $sql->bindParam(":id", $this->getCommentaryId());
+            $sql->bindValue(":contend", $this->getContend());
+            $sql->bindValue(":id", $this->getCommentaryId());
 
             $sql->execute();
             $sql->closeCursor();
@@ -266,7 +266,7 @@
 
             $sql = $this->getDB()->prepare("DELETE FROM commentary WHERE id = :id");
 
-            $sql->bindParam(":id", $this->getCommentaryId());
+            $sql->bindValue(":id", $this->getCommentaryId());
 
             $sql->execute();
             $sql->closeCursor();
