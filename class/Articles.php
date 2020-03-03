@@ -246,6 +246,12 @@
 
             $rows = $this->searchAllArticles();
 
-            require_once "../views/getArticles.php";
+            
+            if($_SESSION['page'] === "index"){
+                require_once "public/views/getArticles.php";
+            }else {
+                require_once "../views/getArticles.php";
+            }
+            
         }
     }

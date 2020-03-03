@@ -1,9 +1,11 @@
 <?php
-
+    session_start();
+    $_SESSION['page'] = "login";
+    
     include_once "header.php";
 ?>
     <h1>Connexion</h1>
-    <form action="../../controllers/backend.php" method="post" id="login">
+    <form action="../../controllers/backend.php" method="post">
         <label for="pseudo">Pseudo : </label>
         <input type="text" name="pseudo" id="pseudo" placeholder="Entrez votre pseudo">
 

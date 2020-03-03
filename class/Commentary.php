@@ -40,7 +40,6 @@
 
         public function __construct()
         {
-            $this->user_id = $_SESSION['id'];
             $this->comment = false;
         }
 

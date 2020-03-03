@@ -14,7 +14,6 @@ if(!isset($_SESSION)){
     <?php if($_SESSION['page'] === "index"):?>
         <link rel="stylesheet" href="public/css/style.css">
     <?php
-    $_SESSION['page'] = NULL;
     else:
     ?>
         <link rel="stylesheet" href="../css/style.css">
@@ -28,5 +27,12 @@ if(!isset($_SESSION)){
         ?>
         <a href="../../models/logout.php">Déconnexion</a>
         <div>Bienvenue, <span class="user"><?= $_SESSION['pseudo'];?></span></div>
+    <?php
+    else:
+        ?>
+        <div id="log">
+            <a href="public/views/register.php" id="register">Inscription</a>
+            <a href="public/views/login.php" id="login">Login</a>
+        </div>
     <?php
     endif;

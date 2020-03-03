@@ -18,7 +18,13 @@
         if (intval(count($rows)) != 1):
             ?>
             <div id="buttons">
+            <?php 
+                if(isset($_SESSION['pseudo'])):
+            ?>
                 <form action="sendCommentary.php" method="get">
+            <?php else:?>
+                <form action="public/views/sendCommentary.php" method="get">
+            <?php endif;?>
                     <input type="hidden" name="article_commentary" id="article_commentary"
                            value="<?= $this->getId() ?>">
                     <input type="submit" value="Ajouter/Voir un commentaire" class="button">

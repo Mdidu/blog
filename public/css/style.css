@@ -6,6 +6,7 @@ body {
 form {
     display: flex;
     flex-direction: column;
+    margin-top: 5%;
 }
 
 a {
@@ -24,17 +25,14 @@ input {
     align-items: center;
 }
 
-#register {
-    margin-top: 12%;
+#log {
+    display: flex;
+    margin-top: 5%;
+    margin-bottom: 2%;
 }
 
 #login {
-    margin-top: 4%;
-}
-
-form#login, form#register {
-    text-align: center;
-    margin-top: 12%;
+    margin-left: 8%;
 }
 
 #buttons {

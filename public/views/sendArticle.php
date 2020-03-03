@@ -1,4 +1,5 @@
 <?php
+session_start();
     require_once "../../trait/Db.php";
     require_once "../../trait/SearchArticle.php";
     require_once "../../class/Users.php";
